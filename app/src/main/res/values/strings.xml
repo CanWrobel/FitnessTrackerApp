@@ -2,13 +2,13 @@
     <string name="app_name">AndroidJava</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">Hallo HTW Berlin</string>
+    <string name="first_fragment_label">Hallo Reinardus</string>
     <string name="second_fragment_label">Hallo Can</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="oksana">Жизнь я тебе подарила не зря
 Так проживи ее, чтя и любя.</string>
-    <string name="htw">Hallo htw</string>
+    <string name="htw">Hallo HTW</string>
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
