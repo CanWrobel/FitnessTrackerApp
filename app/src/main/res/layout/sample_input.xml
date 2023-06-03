@@ -7,28 +7,26 @@
 
     <TextView
         android:id="@+id/tvSelectedDate"
-        android:layout_width="149dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="352dp"
-        android:text="Select a Date"
-        app:layout_constraintBottom_toTopOf="@+id/etDistance"
+        android:layout_width="100dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="44dp"
+        android:text="Select Date"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.048" />
+        app:layout_constraintVertical_bias="0.457" />
 
     <EditText
         android:id="@+id/etSteps"
         android:layout_width="194dp"
         android:layout_height="62dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="56dp"
         android:hint="Enter Steps"
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/etBurntCalories"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
-        app:layout_constraintStart_toEndOf="@+id/tvSelectedDate" />
+        app:layout_constraintStart_toEndOf="@+id/tvSelectedDate"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.456" />
 
     <EditText
         android:id="@+id/etDistance"
@@ -39,7 +37,7 @@
         android:inputType="numberDecimal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/etBurntCalories"
-        app:layout_constraintHorizontal_bias="0.369"
+        app:layout_constraintHorizontal_bias="0.673"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
@@ -52,5 +50,18 @@
         android:inputType="numberDecimal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.823"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etBurntCalories"
+        app:layout_constraintVertical_bias="0.07" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
