@@ -1,4 +1,4 @@
-package com.example.androidjava.sampleViewModel;
+package com.example.androidjava.sample.sampleViewModel;
 
 import android.app.Application;
 
@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.androidjava.sampleModel.DayData;
+import com.example.androidjava.sample.sampleModel.DayData;
 
 public class DayDataViewModel extends AndroidViewModel {
     private final DayDataRepo repository;

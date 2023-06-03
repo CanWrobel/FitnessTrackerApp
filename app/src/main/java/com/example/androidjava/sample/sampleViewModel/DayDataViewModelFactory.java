@@ -1,4 +1,4 @@
-package com.example.androidjava.sampleViewModel;
+package com.example.androidjava.sample.sampleViewModel;
 
 import android.app.Application;
 

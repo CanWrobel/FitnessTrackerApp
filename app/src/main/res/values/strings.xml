@@ -44,4 +44,29 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="steps">Steps</string>
+    <string name="distance">Distance</string>
+    <string name="calories">Calories</string>
+
+    <string name="name_input">Name</string>
+    <string name="name_input_label">What is your name?</string>
+
+    <string name="age_input">Age</string>
+    <string name="age_input_label">Your age</string>
+
+    <string name="height_input">Height (in cm)</string>
+    <string name="height_input_label">Your height in cm</string>
+
+    <string name="weight_input">Weight (in kg)</string>
+    <string name="weight_input_label">Your weight in kg</string>
+
+    <string name="steps_input">Steps</string>
+    <string name="distance_input">Distance (in km)</string>
+    <string name="calories_input">Calories to burn</string>
+
+    <string name="back">Back</string>
+
+
+
+    <string name="next_button">Next</string>
 </resources>

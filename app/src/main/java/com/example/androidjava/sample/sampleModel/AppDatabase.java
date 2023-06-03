@@ -1,4 +1,4 @@
-package com.example.androidjava.sampleModel;
+package com.example.androidjava.sample.sampleModel;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;

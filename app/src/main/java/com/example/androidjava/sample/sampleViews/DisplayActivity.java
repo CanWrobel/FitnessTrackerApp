@@ -1,4 +1,4 @@
-package com.example.androidjava.sampleViews;
+package com.example.androidjava.sample.sampleViews;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -12,8 +12,8 @@ import com.example.androidjava.R;
 
 import java.util.Calendar;
 
-import com.example.androidjava.sampleViewModel.DayDataViewModel;
-import com.example.androidjava.sampleViewModel.DayDataViewModelFactory;
+import com.example.androidjava.sample.sampleViewModel.DayDataViewModel;
+import com.example.androidjava.sample.sampleViewModel.DayDataViewModelFactory;
 
 public class DisplayActivity extends AppCompatActivity {
     private DayDataViewModel viewModel;

@@ -1,13 +1,13 @@
-package com.example.androidjava.sampleViewModel;
+package com.example.androidjava.sample.sampleViewModel;
 
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Room;
 
-import com.example.androidjava.sampleModel.AppDatabase;
-import com.example.androidjava.sampleModel.DayData;
-import com.example.androidjava.sampleModel.DayDataDao;
+import com.example.androidjava.sample.sampleModel.DayData;
+import com.example.androidjava.sample.sampleModel.AppDatabase;
+import com.example.androidjava.sample.sampleModel.DayDataDao;
 
 public class DayDataRepo {
     private final DayDataDao dayDataDao;
