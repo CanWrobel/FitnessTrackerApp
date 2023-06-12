@@ -2,13 +2,13 @@ package com.example.androidjava.FitnessTracker.Models;
 
 import java.util.Date;
 
-public class Message {
+public class DayDataMessage {
     int Steps;
     Date datum;
     double distance;
     double calories;
 
-    public Message(int steps, Date datum, double distance, double calories) {
+    public DayDataMessage(int steps, Date datum, double distance, double calories) {
         Steps = steps;
         this.datum = datum;
         this.distance = distance;
