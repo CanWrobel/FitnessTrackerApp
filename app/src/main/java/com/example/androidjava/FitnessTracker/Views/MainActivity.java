@@ -18,8 +18,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);
+        setContentView(R.layout.activity_main);
 
+        /**
         // set the id for the progressbar and progress text
         progressBar = findViewById(R.id.progress_bar);
         progressText = findViewById(R.id.progress_text);
@@ -39,6 +40,6 @@ public class MainActivity extends AppCompatActivity {
                     handler.removeCallbacks(this);
                 }
             }
-        }, 200);
+        }, 200);**/
     }
 }

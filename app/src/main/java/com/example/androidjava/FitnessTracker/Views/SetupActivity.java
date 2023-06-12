@@ -12,6 +12,7 @@ import android.widget.ViewFlipper;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.androidjava.FitnessTracker.Viewmodels.UserProfileViewModel;
+import com.example.androidjava.sample.sampleViews.InputActivity;
 import com.example.androidjava.R;
 import com.example.androidjava.sample.sampleViews.InputActivity;
 
@@ -63,8 +64,11 @@ public class SetupActivity extends AppCompatActivity {
         // Possibly not allowing to continue
 
         nextButton1.setOnClickListener(view -> {
-            name = nameInput.getText().toString();
-            viewFlipper.showNext();
+            /**name = nameInput.getText().toString();
+            viewFlipper.showNext();**/
+
+            Intent intent = new Intent(SetupActivity.this, InputActivity.class);
+            startActivity(intent);
         });
 
         nextButton2.setOnClickListener(view -> {
