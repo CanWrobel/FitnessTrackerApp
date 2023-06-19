@@ -5,7 +5,7 @@ public class UserProfile {
     private int age;
     private float height;
     private float weight;
-    private int stepsGoal;
+    private int stepsGoal = 50;
     private float distanceGoal;
     private int caloriesGoal;
 

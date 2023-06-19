@@ -1,5 +1,8 @@
 package com.example.androidjava.FitnessTracker.Models;
 
+import java.util.Date;
+import java.util.List;
+
 public interface Datenbank {
     /**
      * sendet eine volle Zeile der fitnesstrackernachricht.
@@ -10,9 +13,21 @@ public interface Datenbank {
 
     /**
      * fetches the fitnessdata from the databse
+     * @param datum In welchem Datum
      * @return message that contains date, steps, distance,
      */
-    DayDataMessage fetchFitnessData();
+    DayDataMessage fetchFitnessData(Date datum);
+
+    /**
+     * fetches all inputs of DayData from the database
+     *
+     * @return list of all day data inputs
+     */
+    static List<DayDataMessage> fetchAllFitnessData() {
+        return null;
+    }
+
+
     /*
     schaut bei einer bestimmten Zelle nach, was da drin steht als connection test
     nur in der implementierungsphase
