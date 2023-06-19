@@ -6,10 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.androidjava.FitnessTracker.Models.DatenbankDummy;
 import com.example.androidjava.FitnessTracker.Models.DayDataMessage;
+import com.example.androidjava.FitnessTracker.Viewmodels.HistoryRecyclerViewAdapter;
 import com.example.androidjava.R;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class HistoryActivity extends AppCompatActivity {
 
@@ -30,6 +34,22 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     private void setUpDayDataList() {
+
+        DatenbankDummy dummy = new DatenbankDummy();
+
+        List<DayDataMessage> list = dummy.fetchAllFitnessData();
+
+
+        for (int i = 0; i < list.size(); i++) {
+            Date date = list.get(i).getDatum();
+            int steps = list.get(i).getSteps();
+            double distance = list.get(i).getDistance();
+            double calories = list.get(i).getCalories();
+
+            dayDataList.add(new DayDataMessage(steps, date, distance, calories));
+
+        }
+
         // Date[] dates  = get all dates from database
         // Int[] steps = get steps from all days in database
         // Double[] distance = get distance from all days in database

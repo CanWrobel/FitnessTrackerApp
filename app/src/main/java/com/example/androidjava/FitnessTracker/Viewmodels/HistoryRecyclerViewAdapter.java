@@ -4,7 +4,7 @@
  * Recycler view item click - https://www.youtube.com/watch?v=7GPUpvcU1FE&t=2s
  */
 
-package com.example.androidjava.FitnessTracker.Views;
+package com.example.androidjava.FitnessTracker.Viewmodels;
 
 import android.content.Context;
 import com.example.androidjava.FitnessTracker.Models.*;
@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidjava.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecyclerViewAdapter.MyViewHolder> {
@@ -45,10 +46,13 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
         // assigning values to the views in the item_day.xml
         // based on the position of the recycler view
 
-        holder.tvDate.setText(dayDataList.get(position).getDatum().toString());
-        holder.tvSteps.setText(dayDataList.get(position).getSteps());
-        holder.tvDistance.setText((int) dayDataList.get(position).getDistance());
-        holder.tvCalories.setText((int) dayDataList.get(position).getCalories());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String dateString = sdf.format(dayDataList.get(position).getDatum());
+
+        holder.tvDate.setText(dateString);
+        holder.tvSteps.setText("Steps: " + dayDataList.get(position).getSteps());
+        holder.tvDistance.setText("Distance: " + dayDataList.get(position).getDistance());
+        holder.tvCalories.setText("Calories burned: " + dayDataList.get(position).getCalories());
     }
 
     @Override
