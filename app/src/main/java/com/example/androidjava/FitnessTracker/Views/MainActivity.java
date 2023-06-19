@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView progressText;
     int i = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -11,9 +11,9 @@ public class DatenbankDummy implements Datenbank{
 
     @Override
     public DayDataMessage fetchFitnessData() {
-        DayDataMessage message1 = new DayDataMessage(88, "2021-3-20", 88,88);
-        DayDataMessage message2 = new DayDataMessage(88, "2021-3-20", 88,88);
-        DayDataMessage message3 = new DayDataMessage(88, "2021-3-20", 88,88);
+//        DayDataMessage message1 = new DayDataMessage(88, "2021-3-20", 88,88);
+//        DayDataMessage message2 = new DayDataMessage(88, "2021-3-20", 88,88);
+//        DayDataMessage message3 = new DayDataMessage(88, "2021-3-20", 88,88);
 
 
 
