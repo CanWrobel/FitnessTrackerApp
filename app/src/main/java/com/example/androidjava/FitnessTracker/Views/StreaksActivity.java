@@ -1,6 +1,8 @@
 
 package com.example.androidjava.FitnessTracker.Views;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -16,10 +18,12 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * https://github.com/Thanvandh/Date-Range-Highlight
+ */
 public class StreaksActivity extends AppCompatActivity {
     MaterialCalendarView calendar;
     TextView date_view;
-    UserProfile userProfile;
     StreaksViewModel streaksViewModel;
     int pink = 0;
     int gray = 1;
@@ -29,20 +33,21 @@ public class StreaksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_streaks);
 
-        userProfile = new UserProfile();
         streaksViewModel = new ViewModelProvider(this).get(StreaksViewModel.class);
+        SharedPreferences sharedPreferences = getSharedPreferences("UserProfile", Context.MODE_PRIVATE);
+        streaksViewModel.initialize(sharedPreferences);
 
         // Get CalendarView and TextView
         calendar = findViewById(R.id.calendar);
         date_view = findViewById(R.id.tvStreakNumber);
 
         // Set streak count
-        int streakCount = streaksViewModel.calculateStreak(userProfile);
+        int streakCount = streaksViewModel.calculateStreak();
         date_view.setText("Current streak: " + streakCount +" days");
 
         // Get the successful days and convert them into CalendarDays
-        List<List<Date>> allStreaks = streaksViewModel.getAllStreaks(userProfile);
-        List<Date> currentStreakDays = streaksViewModel.getCurrentStreakDays(userProfile);
+        List<List<Date>> allStreaks = streaksViewModel.getAllStreaks();
+        List<Date> currentStreakDays = streaksViewModel.getCurrentStreakDays();
 
 
         for (List<Date> streak : allStreaks ) {

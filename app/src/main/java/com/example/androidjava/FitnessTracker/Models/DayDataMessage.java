@@ -1,6 +1,8 @@
 package com.example.androidjava.FitnessTracker.Models;
 
+
 import java.util.Date;
+
 
 public class DayDataMessage {
     int Steps;

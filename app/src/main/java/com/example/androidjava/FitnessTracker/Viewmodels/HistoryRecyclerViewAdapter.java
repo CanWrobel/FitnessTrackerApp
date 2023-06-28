@@ -17,6 +17,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.androidjava.FitnessTracker.Models.Room.DayData;
 import com.example.androidjava.R;
 
 import java.text.SimpleDateFormat;
@@ -25,9 +26,9 @@ import java.util.ArrayList;
 public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecyclerViewAdapter.MyViewHolder> {
 
     Context context;
-    ArrayList<DayDataMessage> dayDataList;
+    ArrayList<DayData> dayDataList;
 
-    public HistoryRecyclerViewAdapter(Context context, ArrayList<DayDataMessage> dayDataList) {
+    public HistoryRecyclerViewAdapter(Context context, ArrayList<DayData> dayDataList) {
         this.context = context;
         this.dayDataList = dayDataList;
     }

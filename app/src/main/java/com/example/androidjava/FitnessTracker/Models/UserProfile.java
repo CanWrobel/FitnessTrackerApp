@@ -1,13 +1,36 @@
 package com.example.androidjava.FitnessTracker.Models;
 
+import static com.mysql.cj.protocol.x.XProtocolDecoder.instance;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+
 public class UserProfile {
-    private String name;
-    private int age;
-    private float height;
-    private float weight;
-    private int stepsGoal = 50;
-    private float distanceGoal;
-    private int caloriesGoal;
+    private String name = "Reinardus";
+    private int age = 20;
+    private int height = 182;
+    private double weight = 88;
+    private int stepsGoal = 8000;
+    private float distanceGoal = 5;
+    private int caloriesGoal = 500;
+    private SharedPreferences sharedPreferences;
+
+
+    public UserProfile(SharedPreferences sharedPreferences) {
+        this.sharedPreferences = sharedPreferences;
+    }
+
+    public void saveData() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("name", name);
+        editor.putInt("age", age);
+        editor.putInt("height", height);
+        editor.putFloat("weight", (float) weight);
+        editor.putInt("stepsGoal", stepsGoal);
+        editor.putFloat("distanceGoal", distanceGoal);
+        editor.putInt("caloriesGoal", caloriesGoal);
+        editor.apply();
+    }
 
     public String getName() {
         return name;
@@ -25,19 +48,19 @@ public class UserProfile {
         this.age = age;
     }
 
-    public float getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(float height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 
-    public float getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public void setWeight(float weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 

@@ -1,5 +1,7 @@
 package com.example.androidjava.FitnessTracker.Viewmodels;
 
+import android.content.SharedPreferences;
+
 import androidx.lifecycle.ViewModel;
 
 import com.example.androidjava.FitnessTracker.Models.DatenbankDummy;
@@ -15,8 +17,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class StreaksViewModel extends ViewModel implements IStreaksViewModel{
+
+/**
+ * https://github.com/Thanvandh/Date-Range-Highlight
+ */
+public class StreaksViewModel extends ViewModel {
     private List<DayDataMessage> allData;
+
+    private UserProfile userProfile;
 
     public StreaksViewModel() {
         this.allData = new DatenbankDummy().fetchAllFitnessData();
@@ -24,7 +32,7 @@ public class StreaksViewModel extends ViewModel implements IStreaksViewModel{
         Collections.sort(this.allData, Comparator.comparing(DayDataMessage::getDatum));
     }
 
-    public int calculateStreak(UserProfile userProfile) {
+    public int calculateStreak() {
         int streakCount = 0;
         Date today = new Date();
 
@@ -45,7 +53,11 @@ public class StreaksViewModel extends ViewModel implements IStreaksViewModel{
         return streakCount;
     }
 
-    public List<List<Date>> getAllStreaks(UserProfile userProfile) {
+    public void initialize(SharedPreferences sharedPreferences) {
+        this.userProfile = new UserProfile(sharedPreferences);
+    }
+
+    public List<List<Date>> getAllStreaks() {
         List<List<Date>> allStreaks = new ArrayList<>();
         List<Date> currentStreak = new ArrayList<>();
 
@@ -82,7 +94,7 @@ public class StreaksViewModel extends ViewModel implements IStreaksViewModel{
         return successfulDays;
     }**/
 
-    public List<Date> getCurrentStreakDays(UserProfile userProfile) {
+    public List<Date> getCurrentStreakDays() {
         List<Date> streakDays = new ArrayList<>();
         Date today = new Date();
 

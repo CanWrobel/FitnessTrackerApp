@@ -2,8 +2,11 @@ package com.example.androidjava.FitnessTracker.Views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,10 +24,13 @@ public class SetupActivity extends AppCompatActivity {
 
     private String name;
     private int age;
-    private float height, weight;
+    private int height;
+    private double weight;
     private int stepsGoal;
     private float distanceGoal;
     private int caloriesGoal;
+
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +38,18 @@ public class SetupActivity extends AppCompatActivity {
         setContentView(R.layout.setup_activites_flipper);
 
         viewModel = new ViewModelProvider(this).get(UserProfileViewModel.class);
+        SharedPreferences sharedPreferences = getSharedPreferences("UserProfile", Context.MODE_PRIVATE);
+        viewModel.initialize(sharedPreferences);
+
+        boolean isFirstRun = sharedPreferences.getBoolean("isFirstRun", true);
+        if (!isFirstRun) {
+            Intent intent = new Intent(SetupActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
+
+
 
         viewFlipper = findViewById(R.id.view_flipper);
 
@@ -61,15 +79,16 @@ public class SetupActivity extends AppCompatActivity {
 
         nextButton2.setOnClickListener(view -> {
             age = Integer.parseInt(ageInput.getText().toString());
-            height = Float.parseFloat(heightInput.getText().toString());
-            weight = Float.parseFloat(weightInput.getText().toString());
+            height = Integer.parseInt(heightInput.getText().toString());
+            weight = Double.parseDouble(weightInput.getText().toString());
             viewFlipper.showNext();
         });
 
         nextButton3.setOnClickListener(view -> {
             stepsGoal = Integer.parseInt(stepsInput.getText().toString());
+            /**
             distanceGoal = Float.parseFloat(distanceInput.getText().toString());
-            caloriesGoal = Integer.parseInt(caloriesInput.getText().toString());
+            caloriesGoal = Integer.parseInt(caloriesInput.getText().toString());**/
 
             // Save the variables in the ViewModel.
             viewModel.setName(name);
@@ -77,8 +96,14 @@ public class SetupActivity extends AppCompatActivity {
             viewModel.setHeight(height);
             viewModel.setWeight(weight);
             viewModel.setStepsGoal(stepsGoal);
+
+            /**
             viewModel.setDistanceGoal(distanceGoal);
-            viewModel.setCaloriesGoal(caloriesGoal);
+            viewModel.setCaloriesGoal(caloriesGoal);**/
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("isFirstRun", false);
+            editor.apply();
 
             // Continue to main acitivity page
             Intent intent = new Intent(SetupActivity.this, MainActivity.class);
