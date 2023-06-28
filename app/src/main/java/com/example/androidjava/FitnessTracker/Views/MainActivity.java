@@ -130,6 +130,30 @@ public class MainActivity extends AppCompatActivity {
         progressBar.setProgress(0);
     }
 
+    public void switchToMain(View view) {
+        setContentView(R.layout.activity_main);
+    }
+
+    public void switchToSreaks(View view) {
+        setContentView(R.layout.activity_streaks);
+    }
+
+    public void switchToHistory(View view) {
+        setContentView(R.layout.activity_history);
+    }
+
+    public void switchToSample(View v){
+        setContentView(R.layout.sample_input);
+    }
+
+    public void switchToSettings(View v){
+        //TODO
+        Button btn = findViewById(R.id.footerButton5);
+
+        btn.setText("Drueck");
+    }
+
+
 
     @Override
     protected void onDestroy() {

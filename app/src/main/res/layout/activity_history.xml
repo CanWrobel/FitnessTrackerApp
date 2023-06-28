@@ -5,6 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Your main content here -->
+
+        <include
+            layout="@layout/futter" />
+    </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/historyRecyclerView"
         android:layout_width="match_parent"

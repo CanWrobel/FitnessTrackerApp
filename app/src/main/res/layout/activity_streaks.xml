@@ -7,6 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".FitnessTracker.Views.HistoryActivity">
 
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Your main content here -->
+
+        <include
+            layout="@layout/futter" />
+    </LinearLayout>
     <!-- Add TextView to display the streaks -->
 
     <!-- Add MaterialCalendarView to display the Calendar -->

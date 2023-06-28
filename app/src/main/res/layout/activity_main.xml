@@ -7,6 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".FitnessTracker.Views.MainActivity">
 
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Your main content here -->
+
+        <include
+            layout="@layout/futter" />
+    </LinearLayout>
+
+
     <RelativeLayout
         android:id="@+id/progress_layout"
         android:layout_width="191dp"

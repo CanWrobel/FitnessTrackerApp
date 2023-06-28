@@ -25,7 +25,7 @@ public class DatabaseTest {
 
 
             while (resultSet.next()) {
-                int i = 10;
+                int i = 9;
                 result[i] = resultSet.getString("datum");
                 i--;
                 if(i == 0) break;
@@ -33,7 +33,7 @@ public class DatabaseTest {
                 //System.out.println(resultSet.getString("steps"));
             }
 
-            System.out.println(result[10]);
+            System.out.println(result[9]);
         } catch (Exception e){
 
         }

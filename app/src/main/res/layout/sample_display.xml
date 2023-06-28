@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".sample.sampleViews.DisplayActivity">
 
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Your main content here -->
+
+        <include
+            layout="@layout/futter" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/tvSelectedDate"
         android:layout_width="wrap_content"
