@@ -1,7 +1,12 @@
 package com.example.androidjava.FitnessTracker.Views;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -14,6 +19,7 @@ import com.example.androidjava.FitnessTracker.Models.Room.DayData;
 import com.example.androidjava.FitnessTracker.Viewmodels.HistoryRecyclerViewAdapter;
 import com.example.androidjava.FitnessTracker.Viewmodels.HistoryViewModel;
 import com.example.androidjava.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,6 +47,34 @@ public class HistoryActivity extends AppCompatActivity {
         adapter = new HistoryRecyclerViewAdapter(this, dayDataList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                Intent intent;
+
+                int itemId = item.getItemId();
+                if (itemId == R.id.nav_main) {
+                    intent = new Intent(getApplicationContext(), MainActivity.class);
+                } else if (itemId == R.id.nav_streaks) {
+                    intent = new Intent(getApplicationContext(), StreaksActivity.class);
+                } else if (itemId == R.id.nav_history) {
+                    intent = new Intent(getApplicationContext(), HistoryActivity.class);
+                } else {
+                    // handle more items if needed
+                    return false;
+                }
+
+
+                startActivity(intent);
+                return true;
+            }
+        });
+
     }
 
     private void setUpDayDataList() {
@@ -85,5 +119,31 @@ public class HistoryActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public void switchToMain(View view) {
+        Intent intent = new Intent(HistoryActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void switchToStreaks(View view) {
+        Intent intent = new Intent(HistoryActivity.this, StreaksActivity.class);
+        startActivity(intent);
+    }
+
+    public void switchToHistory(View view) {
+        Intent intent = new Intent(HistoryActivity.this, HistoryActivity.class);
+        startActivity(intent);
+    }
+
+    public void switchToSample(View v){
+        setContentView(R.layout.sample_input);
+    }
+
+    public void switchToSettings(View v){
+        //TODO
+        Button btn = findViewById(R.id.footerButton5);
+
+        btn.setText("Drueck");
     }
 }

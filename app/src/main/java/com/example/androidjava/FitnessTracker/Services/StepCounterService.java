@@ -1,14 +1,19 @@
 package com.example.androidjava.FitnessTracker.Services;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.IBinder;
+
+import java.text.DecimalFormat;
+import java.util.concurrent.CountDownLatch;
 import android.preference.PreferenceManager;
 
 import androidx.room.Room;
@@ -24,7 +29,7 @@ import java.util.Date;
 public class StepCounterService extends Service implements SensorEventListener {
     private SensorManager sensorManager;
     private Sensor stepCounterSensor;
-    private int stepCount = 0;
+    private int stepCount;
 
     private double distance;
 
@@ -36,10 +41,18 @@ public class StepCounterService extends Service implements SensorEventListener {
 
     private SharedPreferences sharedPreferences;
 
+    private int stepCountOffset = 0;
+
+    private int totalSteps;
+    private boolean resetStepCount = false;
+
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+        sharedPreferences = getSharedPreferences("data", Context.MODE_PRIVATE);;
+        stepCountOffset = sharedPreferences.getInt("stepCountOffset", 0);
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         if (sensorManager != null) {
@@ -47,10 +60,11 @@ public class StepCounterService extends Service implements SensorEventListener {
             sensorManager.registerListener(this, stepCounterSensor, SensorManager.SENSOR_DELAY_UI);
         }
 
+        IntentFilter intentFilter = new IntentFilter("com.example.androidjava.FitnessTracker.RESET_STEP_COUNT");
+        registerReceiver(resetReceiver, intentFilter);
+
         // Get the database instance
         db = DayDataDatabase.getDatabase(getApplicationContext());
-
-        sharedPreferences = getSharedPreferences("data", Context.MODE_PRIVATE);
 
 
         // Initialize DayData and UserProfile
@@ -71,15 +85,19 @@ public class StepCounterService extends Service implements SensorEventListener {
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
 
-            stepCount = (int) event.values[0];
+            // Calculate & Set steps
+            totalSteps = (int) event.values[0];
+            stepCount = totalSteps - stepCountOffset;
             dayData.setSteps(stepCount);
 
-            // Calculate distance
+            // Calculate & Set distance (to 2 dec places)
             double stepLength = userProfile.getHeight() * 0.414;
             distance = (stepCount * stepLength) / 100000;  // in km
+            DecimalFormat decimalFormat = new DecimalFormat("#.##");
+            distance = Double.parseDouble(decimalFormat.format(distance));
             dayData.setDistance(distance);
 
-            // Calculate calories
+            // Calculate & Set calories
             caloriesBurned = (int) Math.round((stepCount / 2000.0) * 0.57 * userProfile.getWeight());
             dayData.setCalories(caloriesBurned);
 
@@ -89,21 +107,34 @@ public class StepCounterService extends Service implements SensorEventListener {
             editor.putInt("calories", caloriesBurned);
             editor.apply();
 
-            // Get current date
-            Date now = new Date();
-
             // Check if the day has changed
-            if (!isSameDay(new Date(dayData.getDatum()), now)) {
+            if (resetStepCount || !isSameDay(new Date(dayData.getDatum()), new Date())) {
+                stepCountOffset = totalSteps;
+                editor.putInt("stepCountOffset", stepCountOffset);
+                editor.apply();
+                resetStepCount = false;
+
+                CountDownLatch latch = new CountDownLatch(1);
+
                 // If the day has changed, save the previous day's data to the database
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         db.dayDataDao().insert(dayData);
+                        latch.countDown();
                     }
                 }).start();
 
                 // Create a new DayData for the new day
-                dayData = new DayData(now.getTime(), 0, 0.0, 0);
+                try {
+                    latch.await();  // Wait here until latch has counted down to zero
+
+                    // Create a new DayData for the new day
+                    dayData = new DayData(new Date().getTime(), 0, 0.0, 0);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
 
             Intent intent = new Intent();
@@ -123,8 +154,26 @@ public class StepCounterService extends Service implements SensorEventListener {
     }
 
 
+    private BroadcastReceiver resetReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            resetStepCount = true;
+            stepCountOffset = totalSteps;
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt("stepCountOffset", stepCountOffset);
+            editor.apply();
+        }
+    };
+
+
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         // Not needed for this application
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(resetReceiver);
     }
 }

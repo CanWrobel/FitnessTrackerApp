@@ -26,6 +26,10 @@
 
         <activity android:name=".FitnessTracker.Views.MainActivity"/>
 
+        <activity android:name=".FitnessTracker.Views.StreaksActivity" />
+
+        <activity android:name=".FitnessTracker.Views.HistoryActivity" />
+
         <service android:name=".FitnessTracker.Services.StepCounterService"/>
 
 

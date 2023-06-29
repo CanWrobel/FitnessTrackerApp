@@ -17,4 +17,5 @@ public interface DayDataDao {
 
     @Query("SELECT * FROM daydata WHERE datum = :datum")
     DayData getDayDataByDate(Long datum);
+
 }

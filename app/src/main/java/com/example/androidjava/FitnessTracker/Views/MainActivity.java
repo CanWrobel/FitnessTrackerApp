@@ -4,17 +4,21 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.example.androidjava.FitnessTracker.Models.Room.DayData;
 import com.example.androidjava.FitnessTracker.Models.UserProfile;
 import com.example.androidjava.FitnessTracker.Services.StepCounterService;
 import com.example.androidjava.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -93,6 +97,31 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                Intent intent;
+
+                int itemId = item.getItemId();
+                if (itemId == R.id.nav_main) {
+                    intent = new Intent(MainActivity.this, MainActivity.class);
+                } else if (itemId == R.id.nav_streaks) {
+                    intent = new Intent(MainActivity.this, StreaksActivity.class);
+                } else if (itemId == R.id.nav_history) {
+                    intent = new Intent(MainActivity.this, HistoryActivity.class);
+                } else {
+                    return false;
+                }
+
+
+                startActivity(intent);
+                return true;
+            }
+        });
+
+
 
     }
 
@@ -126,24 +155,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void endDay(View v){
-        progressText.setText("");
+        progressText.setText("0");
         progressBar.setProgress(0);
+        Intent intent = new Intent("com.example.androidjava.FitnessTracker.RESET_STEP_COUNT");
+        sendBroadcast(intent);
+        Button btnEndDay = findViewById(R.id.btnEndDay);
+        //btnEndDay.setVisibility(View.GONE);
     }
-
+    /**
     public void switchToMain(View view) {
-        setContentView(R.layout.activity_main);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
-    public void switchToSreaks(View view) {
-        setContentView(R.layout.activity_streaks);
+    public void switchToStreaks(View view) {
+        Intent intent = new Intent(this, StreaksActivity.class);
+        startActivity(intent);
     }
 
     public void switchToHistory(View view) {
-        setContentView(R.layout.activity_history);
+        Intent intent = new Intent(this, HistoryActivity.class);
+        startActivity(intent);
     }
 
     public void switchToSample(View v){
-        setContentView(R.layout.sample_input);
+        setContentView(R.layout.activity_history);
     }
 
     public void switchToSettings(View v){
@@ -151,8 +187,7 @@ public class MainActivity extends AppCompatActivity {
         Button btn = findViewById(R.id.footerButton5);
 
         btn.setText("Drueck");
-    }
-
+    }**/
 
 
     @Override

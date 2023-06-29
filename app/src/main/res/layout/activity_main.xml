@@ -7,18 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".FitnessTracker.Views.MainActivity">
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <!-- Your main content here -->
-
-        <include
-            layout="@layout/futter" />
-    </LinearLayout>
-
 
     <RelativeLayout
         android:id="@+id/progress_layout"
@@ -91,7 +79,7 @@
         app:layout_constraintVertical_bias="0.097" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btnEndDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="endDay"
@@ -103,4 +91,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.51" />
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_navigation_menu" />
 </androidx.constraintlayout.widget.ConstraintLayout>
