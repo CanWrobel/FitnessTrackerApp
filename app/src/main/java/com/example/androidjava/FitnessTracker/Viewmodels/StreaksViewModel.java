@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -25,16 +26,21 @@ public class StreaksViewModel extends ViewModel {
     private List<DayDataMessage> allData;
 
     private UserProfile userProfile;
+    private UserProfileViewModel userProfileViewModel;
 
-    public StreaksViewModel() {
+    public StreaksViewModel(SharedPreferences sharedPreferences) {
         this.allData = new DatenbankDummy().fetchAllFitnessData();
-        // Sort by date
         Collections.sort(this.allData, Comparator.comparing(DayDataMessage::getDatum));
+
+        userProfileViewModel = new UserProfileViewModel();
+        userProfileViewModel.initialize(sharedPreferences);
+        userProfile = userProfileViewModel.getUserProfile();
     }
 
     public int calculateStreak() {
         int streakCount = 0;
-        Date today = new Date();
+        Calendar calendar = Calendar.getInstance();
+        Date today = calendar.getTime();
 
         // Iterating in reverse order to start from the most recent data
         for (int i = allData.size() - 1; i >= 0; i--) {
@@ -51,10 +57,6 @@ public class StreaksViewModel extends ViewModel {
             }
         }
         return streakCount;
-    }
-
-    public void initialize(SharedPreferences sharedPreferences) {
-        this.userProfile = new UserProfile(sharedPreferences);
     }
 
     public List<List<Date>> getAllStreaks() {
@@ -101,6 +103,7 @@ public class StreaksViewModel extends ViewModel {
         // Iterating in reverse order to start from the most recent data
         for (int i = allData.size() - 1; i >= 0; i--) {
             DayDataMessage dayData = allData.get(i);
+
             if (dayData.getDatum().compareTo(today) > 0) {
                 // Skip future data
                 continue;

@@ -19,7 +19,7 @@ public class HistoryViewModel extends AndroidViewModel {
     public HistoryViewModel(@NonNull Application application) {
         super(application);
         database = DayDataDatabase.getDatabase(application);
-        //database.insertTestData();
+        database.insertTestData();
         allDayData = database.dayDataDao().getAllDayData();
     }
 

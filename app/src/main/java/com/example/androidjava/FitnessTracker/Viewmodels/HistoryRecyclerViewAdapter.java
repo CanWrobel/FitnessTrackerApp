@@ -52,7 +52,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
 
         holder.tvDate.setText(dateString);
         holder.tvSteps.setText("Steps: " + dayDataList.get(position).getSteps());
-        holder.tvDistance.setText("Distance: " + dayDataList.get(position).getDistance());
+        holder.tvDistance.setText("Distance: " + dayDataList.get(position).getDistance() +" km");
         holder.tvCalories.setText("Calories burned: " + dayDataList.get(position).getCalories());
     }
 

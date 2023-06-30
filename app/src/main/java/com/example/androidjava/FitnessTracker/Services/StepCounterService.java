@@ -16,12 +16,14 @@ import java.text.DecimalFormat;
 import java.util.concurrent.CountDownLatch;
 import android.preference.PreferenceManager;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.room.Room;
 
 import com.example.androidjava.FitnessTracker.Models.Room.DayDataDao;
 import com.example.androidjava.FitnessTracker.Models.Room.DayDataDatabase;
 import com.example.androidjava.FitnessTracker.Models.UserProfile;
 import com.example.androidjava.FitnessTracker.Models.Room.DayData;
+import com.example.androidjava.FitnessTracker.Viewmodels.UserProfileViewModel;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -36,6 +38,7 @@ public class StepCounterService extends Service implements SensorEventListener {
     private int caloriesBurned;
     private DayData dayData;
     private UserProfile userProfile;
+    private UserProfileViewModel userProfileViewModel;
 
     private DayDataDatabase db;
 
@@ -74,7 +77,9 @@ public class StepCounterService extends Service implements SensorEventListener {
         long datum = sharedPreferences.getLong("datum", new Date().getTime());
         dayData = new DayData(datum, steps, distance, calories);
 
-        userProfile = new UserProfile(sharedPreferences);
+        userProfileViewModel = new UserProfileViewModel();
+        userProfileViewModel.initialize(sharedPreferences);
+        userProfile = userProfileViewModel.getUserProfile();
     }
     @Override
     public IBinder onBind(Intent intent) {

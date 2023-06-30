@@ -3,17 +3,26 @@
     <item
         android:id="@+id/nav_main"
         android:title="Main"
-        android:icon="@drawable/heart_icon" />
+        android:icon="@drawable/home_icon" />
 
     <item
         android:id="@+id/nav_streaks"
         android:title="Streaks"
-        android:icon="@drawable/heart_icon" />
+        android:icon="@drawable/fire_icon" />
 
     <item
         android:id="@+id/nav_history"
         android:title="History"
-        android:icon="@drawable/heart_icon" />
+        android:icon="@drawable/history" />
 
+    <item
+        android:id="@+id/nav_input"
+        android:title="Input"
+        android:icon="@drawable/input" />
+
+    <item
+        android:id="@+id/nav_settings"
+        android:title="Settings"
+        android:icon="@drawable/settings" />
 
 </menu>

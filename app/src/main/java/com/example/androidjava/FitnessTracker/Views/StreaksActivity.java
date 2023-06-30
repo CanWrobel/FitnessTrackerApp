@@ -39,9 +39,7 @@ public class StreaksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_streaks);
 
-        streaksViewModel = new ViewModelProvider(this).get(StreaksViewModel.class);
-        SharedPreferences sharedPreferences = getSharedPreferences("UserProfile", Context.MODE_PRIVATE);
-        streaksViewModel.initialize(sharedPreferences);
+        streaksViewModel = new StreaksViewModel(getSharedPreferences("data", MODE_PRIVATE));
 
         // Get CalendarView and TextView
         calendar = findViewById(R.id.calendar);
@@ -66,27 +64,34 @@ public class StreaksActivity extends AppCompatActivity {
 
 
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-        bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        // Initialize and assign variable
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        // Set History selected
+        bottomNavigationView.setSelectedItemId(R.id.nav_streaks);
+
+        // Perform item selected listener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                Intent intent;
-
                 int itemId = item.getItemId();
                 if (itemId == R.id.nav_main) {
-                    intent = new Intent(StreaksActivity.this, MainActivity.class);
-                } else if (itemId == R.id.nav_streaks) {
-                    intent = new Intent(StreaksActivity.this, StreaksActivity.class);
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
                 } else if (itemId == R.id.nav_history) {
-                    intent = new Intent(StreaksActivity.this, HistoryActivity.class);
-                } else {
-                    return false;
+                    startActivity(new Intent(getApplicationContext(), HistoryActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                } else if (itemId == R.id.nav_streaks) {
+                    return true;
                 }
-
-
-                startActivity(intent);
-                return true;
+                else if (itemId == R.id.nav_settings) {
+                    startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                }
+                return false;
             }
         });
     }
@@ -117,30 +122,4 @@ public class StreaksActivity extends AppCompatActivity {
                 , calendarDayList));
     }
 
-    public void switchToMain(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-
-    public void switchToStreaks(View view) {
-        Intent intent = new Intent(this, StreaksActivity.class);
-        startActivity(intent);
-    }
-
-    public void switchToHistory(View view) {
-        Intent intent = new Intent(this, HistoryActivity.class);
-        startActivity(intent);
-    }
-
-
-    public void switchToSample(View v){
-        setContentView(R.layout.sample_input);
-    }
-
-    public void switchToSettings(View v){
-        //TODO
-        Button btn = findViewById(R.id.footerButton5);
-
-        btn.setText("Drueck");
-    }
 }

@@ -13,10 +13,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.androidjava.FitnessTracker.Models.Room.DayData;
 import com.example.androidjava.FitnessTracker.Models.UserProfile;
 import com.example.androidjava.FitnessTracker.Services.StepCounterService;
+import com.example.androidjava.FitnessTracker.Viewmodels.UserProfileViewModel;
 import com.example.androidjava.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -38,15 +40,18 @@ public class MainActivity extends AppCompatActivity {
 
     private UserProfile userProfile;
 
+    private UserProfileViewModel userProfileViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         sharedPreferences = getSharedPreferences("data", Context.MODE_PRIVATE);
-        userProfile = new UserProfile(sharedPreferences);
+        userProfileViewModel = new ViewModelProvider(this).get(UserProfileViewModel.class);
+        userProfileViewModel.initialize(sharedPreferences);
+        userProfile = userProfileViewModel.getUserProfile();
         dayData = new DayData(
                 0L,
                 sharedPreferences.getInt("steps", 0),
@@ -97,27 +102,34 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-        bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        // Initialize and assign variable
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        // Set History selected
+        bottomNavigationView.setSelectedItemId(R.id.nav_main);
+
+        // Perform item selected listener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                Intent intent;
-
                 int itemId = item.getItemId();
                 if (itemId == R.id.nav_main) {
-                    intent = new Intent(MainActivity.this, MainActivity.class);
-                } else if (itemId == R.id.nav_streaks) {
-                    intent = new Intent(MainActivity.this, StreaksActivity.class);
+                    return true;
                 } else if (itemId == R.id.nav_history) {
-                    intent = new Intent(MainActivity.this, HistoryActivity.class);
-                } else {
-                    return false;
+                    startActivity(new Intent(getApplicationContext(), HistoryActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                } else if (itemId == R.id.nav_streaks) {
+                    startActivity(new Intent(getApplicationContext(), StreaksActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
                 }
-
-
-                startActivity(intent);
-                return true;
+                else if (itemId == R.id.nav_settings) {
+                    startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                }
+                return false;
             }
         });
 
@@ -162,32 +174,6 @@ public class MainActivity extends AppCompatActivity {
         Button btnEndDay = findViewById(R.id.btnEndDay);
         //btnEndDay.setVisibility(View.GONE);
     }
-    /**
-    public void switchToMain(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-
-    public void switchToStreaks(View view) {
-        Intent intent = new Intent(this, StreaksActivity.class);
-        startActivity(intent);
-    }
-
-    public void switchToHistory(View view) {
-        Intent intent = new Intent(this, HistoryActivity.class);
-        startActivity(intent);
-    }
-
-    public void switchToSample(View v){
-        setContentView(R.layout.activity_history);
-    }
-
-    public void switchToSettings(View v){
-        //TODO
-        Button btn = findViewById(R.id.footerButton5);
-
-        btn.setText("Drueck");
-    }**/
 
 
     @Override

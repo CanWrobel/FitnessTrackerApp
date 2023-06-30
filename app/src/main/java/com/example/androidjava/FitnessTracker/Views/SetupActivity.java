@@ -37,17 +37,18 @@ public class SetupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setup_activites_flipper);
 
+        sharedPreferences = getSharedPreferences("data", Context.MODE_PRIVATE);
         viewModel = new ViewModelProvider(this).get(UserProfileViewModel.class);
-        SharedPreferences sharedPreferences = getSharedPreferences("UserProfile", Context.MODE_PRIVATE);
         viewModel.initialize(sharedPreferences);
 
-        boolean isFirstRun = sharedPreferences.getBoolean("isFirstRun", true);
+        /**
+        boolean isFirstRun = viewModel.getSharedPreferences().getBoolean("isFirstRun", true);
         if (!isFirstRun) {
             Intent intent = new Intent(SetupActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
             return;
-        }
+        }**/
 
 
 
@@ -60,46 +61,44 @@ public class SetupActivity extends AppCompatActivity {
         stepsInput = findViewById(R.id.inputSteps);
         distanceInput = findViewById(R.id.inputDistance);
         caloriesInput = findViewById(R.id.inputCalories);
+    }
 
-        Button nextButton1 = findViewById(R.id.btnNext1);
-        Button nextButton2 = findViewById(R.id.btnNext2);
-        Button nextButton3 = findViewById(R.id.btnNext3);
-
-        Button backButton2 = findViewById(R.id.btnBack2);
-        Button backButton3 = findViewById(R.id.btnBack3);
-
-
-        //TODO: Set guard if input values are null (user did not input) and next button is clicked
-        // Possibly not allowing to continue
-
-        nextButton1.setOnClickListener(view -> {
-            name = nameInput.getText().toString();
+    public void nextButton1Click(View view) {
+        name = nameInput.getText().toString();
+        if (name.isEmpty()) {
+            nameInput.setError("Name cannot be empty");
+        } else {
             viewFlipper.showNext();
-        });
+        }
+    }
 
-        nextButton2.setOnClickListener(view -> {
-            age = Integer.parseInt(ageInput.getText().toString());
-            height = Integer.parseInt(heightInput.getText().toString());
-            weight = Double.parseDouble(weightInput.getText().toString());
+    public void nextButton2Click(View view) {
+        String ageString = ageInput.getText().toString();
+        String heightString = heightInput.getText().toString();
+        String weightString = weightInput.getText().toString();
+
+        if (ageString.isEmpty()) {
+            ageInput.setError("Age cannot be empty");
+        } if (heightString.isEmpty()) {
+            heightInput.setError("Height cannot be empty");
+        } else if (weightString.isEmpty()) {
+            weightInput.setError("Weight cannot be empty");
+        } else {
+            age = Integer.parseInt(ageString);
+            height = Integer.parseInt(heightString);
+            weight = Double.parseDouble(weightString);
             viewFlipper.showNext();
-        });
+        }
+    }
 
-        nextButton3.setOnClickListener(view -> {
-            stepsGoal = Integer.parseInt(stepsInput.getText().toString());
-            /**
-            distanceGoal = Float.parseFloat(distanceInput.getText().toString());
-            caloriesGoal = Integer.parseInt(caloriesInput.getText().toString());**/
+    public void nextButton3Click(View view) {
+        String stepsString = stepsInput.getText().toString();
 
-            // Save the variables in the ViewModel.
-            viewModel.setName(name);
-            viewModel.setAge(age);
-            viewModel.setHeight(height);
-            viewModel.setWeight(weight);
-            viewModel.setStepsGoal(stepsGoal);
-
-            /**
-            viewModel.setDistanceGoal(distanceGoal);
-            viewModel.setCaloriesGoal(caloriesGoal);**/
+        if (stepsString.isEmpty()) {
+            stepsInput.setError("Steps Goal cannot be empty");
+        } else {
+            stepsGoal = Integer.parseInt(stepsString);
+            viewModel.updateUserProfile(name, age, height, weight, stepsGoal);
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean("isFirstRun", false);
@@ -108,10 +107,6 @@ public class SetupActivity extends AppCompatActivity {
             // Continue to main acitivity page
             Intent intent = new Intent(SetupActivity.this, MainActivity.class);
             startActivity(intent);
-        });
-
-        backButton2.setOnClickListener(view -> viewFlipper.showPrevious());
-
-        backButton3.setOnClickListener(view -> viewFlipper.showPrevious());
+        }
     }
 }

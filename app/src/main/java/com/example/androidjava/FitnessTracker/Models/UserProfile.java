@@ -7,17 +7,21 @@ import android.content.SharedPreferences;
 
 public class UserProfile {
     private String name = "Reinardus";
-    private int age = 20;
-    private int height = 182;
-    private double weight = 88;
-    private int stepsGoal = 8000;
-    private float distanceGoal = 5;
-    private int caloriesGoal = 500;
+    private int age;
+    private int height;
+    private double weight;
+    private int stepsGoal;
+    private float distanceGoal;
+    private int caloriesGoal;
     private SharedPreferences sharedPreferences;
 
 
-    public UserProfile(SharedPreferences sharedPreferences) {
-        this.sharedPreferences = sharedPreferences;
+    public UserProfile(String name, int age, int height, double weight, int stepsGoal) {
+        this.name = name;
+        this.age = age;
+        this.height = height;
+        this.weight = weight;
+        this.stepsGoal = stepsGoal;
     }
 
     public void saveData() {

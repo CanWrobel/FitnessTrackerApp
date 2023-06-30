@@ -32,33 +32,37 @@ public class DatenbankDummy implements Datenbank{
         List<DayDataMessage> messages = new ArrayList<>();
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(2023, Calendar.JUNE, 12);
+        calendar.set(2023, Calendar.JUNE, 21);
         Date date = calendar.getTime();
-        DayDataMessage message1 = new DayDataMessage(60, date, 88,88);
+        DayDataMessage message1 = new DayDataMessage(10000, date, 88,88);
 
-        calendar.set(2023, Calendar.JUNE, 13);
+        calendar.set(2023, Calendar.JUNE, 22);
         date = calendar.getTime();
-        DayDataMessage message2 = new DayDataMessage(60, date, 88,88);
+        DayDataMessage message2 = new DayDataMessage(10000, date, 88,88);
 
-        calendar.set(2023, Calendar.JUNE, 14);
+        calendar.set(2023, Calendar.JUNE, 23);
         date = calendar.getTime();
-        DayDataMessage message3 = new DayDataMessage(60, date, 88,88);
+        DayDataMessage message3 = new DayDataMessage(10000, date, 88,88);
 
-        calendar.set(2023, Calendar.JUNE, 15);
+        calendar.set(2023, Calendar.JUNE, 24);
         date = calendar.getTime();
         DayDataMessage message4 = new DayDataMessage(10, date, 88,88);
 
-        calendar.set(2023, Calendar.JUNE, 16);
+        calendar.set(2023, Calendar.JUNE, 25);
         date = calendar.getTime();
-        DayDataMessage message5 = new DayDataMessage(200, date, 88,88);
+        DayDataMessage message5 = new DayDataMessage(20000, date, 88,88);
 
-        calendar.set(2023, Calendar.JUNE, 17);
+        calendar.set(2023, Calendar.JUNE, 26);
         date = calendar.getTime();
-        DayDataMessage message6 = new DayDataMessage(100, date, 88,88);
+        DayDataMessage message6 = new DayDataMessage(100000, date, 88,88);
 
-        calendar.set(2023, Calendar.JUNE, 18);
+        calendar.set(2023, Calendar.JUNE, 27);
         date = calendar.getTime();
-        DayDataMessage message7 = new DayDataMessage(100, date, 0.5, 50);
+        DayDataMessage message7 = new DayDataMessage(10000, date, 0.5, 50);
+
+        calendar.set(2023, Calendar.JUNE, 28);
+        date = calendar.getTime();
+        DayDataMessage message8 = new DayDataMessage(10000, date, 0.5, 50);
 
         messages.add(message1);
         messages.add(message2);
@@ -67,6 +71,7 @@ public class DatenbankDummy implements Datenbank{
         messages.add(message5);
         messages.add(message6);
         messages.add(message7);
+        messages.add(message8);
         return messages;
     }
 
