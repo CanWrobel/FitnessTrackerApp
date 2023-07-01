@@ -37,11 +37,13 @@ public class UserProfileViewModel extends ViewModel {
     }
 
     public void updateUserProfile(String name, int age, int height, double weight, int stepsGoal) {
-        this.userProfile.setName(name);
-        this.userProfile.setAge(age);
-        this.userProfile.setHeight(height);
-        this.userProfile.setWeight(weight);
-        this.userProfile.setStepsGoal(stepsGoal);
+        setName(name);
+        setAge(age);
+        setHeight(height);
+        setWeight(weight);
+        setStepsGoal(stepsGoal);
+        setCaloriesGoal(stepsGoal);
+        setDistanceGoal(stepsGoal);
 
         saveUserProfile();
     }
@@ -73,6 +75,20 @@ public class UserProfileViewModel extends ViewModel {
 
     public void setStepsGoal(int stepsGoal) {
         this.userProfile.setStepsGoal(stepsGoal);
+    }
+
+    public void setDistanceGoal(int stepsGoal) {
+        // Calculate & Set distance (to 2 dec places)
+        double stepLength = userProfile.getHeight() * 0.414;
+        float distanceGoal = (float) ((userProfile.getStepsGoal() * stepLength) / 100000);
+
+        this.userProfile.setDistanceGoal(distanceGoal);
+    }
+
+    public void setCaloriesGoal(int stepsGoal) {
+        int calorieGoal = (int) Math.round((userProfile.getStepsGoal() / 2000.0) * 0.57 * userProfile.getWeight());// Calculate & Set distance (to 2 dec places)
+        double stepLength = userProfile.getHeight() * 0.414;
+        this.userProfile.setCaloriesGoal(calorieGoal);
     }
 
     public SharedPreferences getSharedPreferences() {

@@ -1,17 +1,14 @@
 package com.example.androidjava.FitnessTracker.Views;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ViewFlipper;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.androidjava.FitnessTracker.Viewmodels.UserProfileViewModel;
@@ -41,14 +38,14 @@ public class SetupActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(UserProfileViewModel.class);
         viewModel.initialize(sharedPreferences);
 
-
+        /*
         boolean isFirstRun = viewModel.getSharedPreferences().getBoolean("isFirstRun", true);
         if (!isFirstRun) {
             Intent intent = new Intent(SetupActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
             return;
-        }
+        }*/
 
 
 
@@ -59,8 +56,6 @@ public class SetupActivity extends AppCompatActivity {
         heightInput = findViewById(R.id.inputHeight);
         weightInput = findViewById(R.id.inputWeight);
         stepsInput = findViewById(R.id.inputSteps);
-        distanceInput = findViewById(R.id.inputDistance);
-        caloriesInput = findViewById(R.id.inputCalories);
     }
 
     public void nextButton1Click(View view) {
@@ -98,6 +93,8 @@ public class SetupActivity extends AppCompatActivity {
             stepsInput.setError("Steps Goal cannot be empty");
         } else {
             stepsGoal = Integer.parseInt(stepsString);
+
+
             viewModel.updateUserProfile(name, age, height, weight, stepsGoal);
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -108,5 +105,13 @@ public class SetupActivity extends AppCompatActivity {
             Intent intent = new Intent(SetupActivity.this, MainActivity.class);
             startActivity(intent);
         }
+    }
+
+    public void backButton2Click(View view) {
+        viewFlipper.showPrevious();
+    }
+
+    public void backButton3Click(View view) {
+        viewFlipper.showPrevious();
     }
 }

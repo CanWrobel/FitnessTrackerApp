@@ -45,6 +45,9 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="steps">Steps</string>
+    <string name="steps_goal">What is your daily steps goal?</string>
+    <string name="other_goals">*Target distance and calories burned will be calculated based on your daily step count.</string>
+
     <string name="distance">Distance</string>
     <string name="calories">Calories</string>
 

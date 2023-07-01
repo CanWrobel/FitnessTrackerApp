@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:visibility="visible">
 
     <ViewFlipper
         android:id="@+id/view_flipper"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="visible">
 
-        <include layout="@layout/setup_activity_1"/>
-        <include layout="@layout/setup_activity_2"/>
-        <include layout="@layout/setup_activity_3"/>
+        <include
+            layout="@layout/setup_activity_1"
+            android:visibility="visible" />
+
+        <include
+            layout="@layout/setup_activity_2"
+            android:visibility="visible" />
+
+        <include
+            layout="@layout/setup_activity_3"
+            android:visibility="visible"
+            tools:visibility="visible" />
 
     </ViewFlipper>
 

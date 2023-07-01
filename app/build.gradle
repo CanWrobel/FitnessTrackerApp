@@ -40,9 +40,12 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.5.3'
     implementation files('libs\\mysql-connector-j-8.0.33.jar')
     implementation files('libs\\mysql-connector-j-8.0.33.jar')
+    implementation 'androidx.test.espresso:espresso-contrib:3.5.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test:runner:1.4.0'
+    androidTestImplementation 'androidx.test:rules:1.4.0'
 
     def room_version = "2.4.1"
     implementation "androidx.room:room-runtime:$room_version"
@@ -54,7 +57,8 @@ dependencies {
     //Material Calendar View
     implementation 'com.prolificinteractive:material-calendarview:1.4.3'
 
-
     implementation 'com.google.android.material:material:1.4.0'
+
+
 
 }

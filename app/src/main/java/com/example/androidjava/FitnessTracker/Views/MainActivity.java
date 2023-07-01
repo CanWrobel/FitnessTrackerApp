@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.androidjava.FitnessTracker.Models.Room.DayData;
@@ -98,35 +97,6 @@ public class MainActivity extends AppCompatActivity {
         IntentFilter intentFilter = new IntentFilter("com.example.androidjava.FitnessTracker.STEP_COUNT");
         registerReceiver(receiver, intentFilter);
 
-        // Show steps on button click
-        btnShowSteps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                choice = "steps";
-                updateProgress(choice);
-            }
-        });
-
-        // Show distance on button click
-        btnShowDistance.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                choice = "distance";
-                updateProgress(choice);
-            }
-        });
-
-        // Show calories on button click
-        btnShowCalories.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                choice = "calories";
-                updateProgress(choice);
-            }
-        });
-
-
-
         // Initialize and assign variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -162,6 +132,30 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void endDay(View v){
+        progressText.setText("0");
+        progressBar.setProgress(0);
+        Intent intent = new Intent("com.example.androidjava.FitnessTracker.RESET_STEP_COUNT");
+        sendBroadcast(intent);
+        Button btnEndDay = findViewById(R.id.btnEndDay);
+        //btnEndDay.setVisibility(View.GONE);
+    }
+
+    public void showSteps(View view) {
+        choice = "steps";
+        updateProgress(choice);
+    }
+
+    public void showDistance(View view) {
+        choice = "distance";
+        updateProgress(choice);
+    }
+    public void showCalories(View view) {
+        choice = "calories";
+        updateProgress(choice);
+    }
+
+
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -174,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
     private void updateProgress(String choice){
         switch (choice) {
             case "distance":
-                progressText.setText(String.format("%.2f", dayData.getDistance()) + " km");
+                progressText.setText(String.format("%.1f", dayData.getDistance()) + " km");
                 progressBar.setMax((int)userProfile.getDistanceGoal());
                 progressBar.setProgress((int) Math.ceil(dayData.getDistance()));
                 break;
@@ -191,14 +185,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void endDay(View v){
-        progressText.setText("0");
-        progressBar.setProgress(0);
-        Intent intent = new Intent("com.example.androidjava.FitnessTracker.RESET_STEP_COUNT");
-        sendBroadcast(intent);
-        Button btnEndDay = findViewById(R.id.btnEndDay);
-        //btnEndDay.setVisibility(View.GONE);
-    }
+
 
 
     @Override
@@ -207,4 +194,3 @@ public class MainActivity extends AppCompatActivity {
         unregisterReceiver(receiver);
     }
 }
-

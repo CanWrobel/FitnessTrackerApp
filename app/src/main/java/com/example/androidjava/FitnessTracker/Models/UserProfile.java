@@ -13,7 +13,6 @@ public class UserProfile {
     private int stepsGoal;
     private float distanceGoal;
     private int caloriesGoal;
-    private SharedPreferences sharedPreferences;
 
 
     public UserProfile(String name, int age, int height, double weight, int stepsGoal) {
@@ -22,18 +21,6 @@ public class UserProfile {
         this.height = height;
         this.weight = weight;
         this.stepsGoal = stepsGoal;
-    }
-
-    public void saveData() {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("name", name);
-        editor.putInt("age", age);
-        editor.putInt("height", height);
-        editor.putFloat("weight", (float) weight);
-        editor.putInt("stepsGoal", stepsGoal);
-        editor.putFloat("distanceGoal", distanceGoal);
-        editor.putInt("caloriesGoal", caloriesGoal);
-        editor.apply();
     }
 
     public String getName() {

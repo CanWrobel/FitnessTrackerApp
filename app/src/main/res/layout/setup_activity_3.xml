@@ -20,7 +20,7 @@
         android:id="@+id/inputStepsLabel"
         android:layout_width="288dp"
         android:layout_height="30dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="108dp"
         android:text="@string/steps"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,84 +37,42 @@
         android:hint="@string/steps_input"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputStepsLabel" />
 
     <TextView
-        android:id="@+id/inputDistanceLabel"
-        android:layout_width="288dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/distance"
-        android:textSize="24sp"
+        android:id="@+id/labelOtherGoals"
+        android:layout_width="304dp"
+        android:layout_height="56dp"
+        android:text="@string/other_goals"
+        android:textColor="#61000000"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputSteps" />
-
-    <EditText
-        android:id="@+id/inputDistance"
-        android:layout_width="303dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="@string/distance_input"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputDistanceLabel" />
-
-    <TextView
-        android:id="@+id/inputCaloriesLabel"
-        android:layout_width="288dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/calories"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputDistance" />
-
-    <EditText
-        android:id="@+id/inputCalories"
-        android:layout_width="303dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="@string/calories_input"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputCaloriesLabel" />
 
     <Button
         android:id="@+id/btnNext3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
         android:onClick="nextButton3Click"
         android:text="@string/next_button"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.878"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputCalories"
-        app:layout_constraintVertical_bias="0.184" />
+        app:layout_constraintHorizontal_bias="0.712"
+        app:layout_constraintStart_toEndOf="@+id/btnBack3"
+        app:layout_constraintTop_toBottomOf="@+id/labelOtherGoals" />
 
     <Button
         android:id="@+id/btnBack3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="52dp"
+        android:onClick="backButton3Click"
         android:text="@string/back"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnNext3"
-        app:layout_constraintHorizontal_bias="0.013"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputCalories"
-        app:layout_constraintVertical_bias="0.184" />
+        app:layout_constraintTop_toBottomOf="@+id/labelOtherGoals"
+        app:layout_constraintVertical_bias="0.216" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

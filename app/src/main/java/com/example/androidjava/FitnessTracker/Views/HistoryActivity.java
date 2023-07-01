@@ -3,8 +3,6 @@ package com.example.androidjava.FitnessTracker.Views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,8 +11,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.androidjava.FitnessTracker.Models.DatenbankDummy;
-import com.example.androidjava.FitnessTracker.Models.DayDataMessage;
 import com.example.androidjava.FitnessTracker.Models.Room.DayData;
 import com.example.androidjava.FitnessTracker.Viewmodels.HistoryRecyclerViewAdapter;
 import com.example.androidjava.FitnessTracker.Viewmodels.HistoryViewModel;
@@ -22,7 +18,6 @@ import com.example.androidjava.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class HistoryActivity extends AppCompatActivity {
@@ -97,7 +92,7 @@ public class HistoryActivity extends AppCompatActivity {
             }
         });
 
-        /**
+        /*
          DatenbankDummy dummy = new DatenbankDummy();
 
          List<DayDataMessage> list = dummy.fetchAllFitnessData();
@@ -123,7 +118,7 @@ public class HistoryActivity extends AppCompatActivity {
          for (int i = 0; i < dates.length; i++) {
          dayDataList.add(new DayDataMessage(steps[i], dates[i],distance[i], calories[i]));
          }
-         **/
+         */
 
 
 
