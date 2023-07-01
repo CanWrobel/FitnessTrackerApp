@@ -26,6 +26,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView progressText;
@@ -52,18 +55,34 @@ public class MainActivity extends AppCompatActivity {
         userProfileViewModel = new ViewModelProvider(this).get(UserProfileViewModel.class);
         userProfileViewModel.initialize(sharedPreferences);
         userProfile = userProfileViewModel.getUserProfile();
-        dayData = new DayData(
-                0L,
-                sharedPreferences.getInt("steps", 0),
-                Double.longBitsToDouble(sharedPreferences.getLong("distance", 0L)),
-                sharedPreferences.getInt("calories", 0)
-        );
 
-        Intent intent = new Intent(this, StepCounterService.class);
-        startService(intent);
+        long datum = sharedPreferences.getLong("datum", new Date().getTime());
+        Date today = new Date();
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        cal1.setTimeInMillis(datum);
+        cal2.setTime(today);
 
-        IntentFilter intentFilter = new IntentFilter("com.example.androidjava.FitnessTracker.STEP_COUNT");
-        registerReceiver(receiver, intentFilter);
+        boolean sameDay = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)
+                && cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH)
+                && cal1.get(Calendar.DAY_OF_MONTH) == cal2.get(Calendar.DAY_OF_MONTH);
+
+        if (sameDay) {
+            dayData = new DayData(
+                    datum,
+                    sharedPreferences.getInt("steps", 0),
+                    Double.longBitsToDouble(sharedPreferences.getLong("distance", 0L)),
+                    sharedPreferences.getInt("calories", 0)
+            );
+        } else {
+            dayData = new DayData(
+                    today.getTime(),
+                    0,
+                    0.0,
+                    0
+            );
+        }
+
 
         progressBar = findViewById(R.id.progress_bar);
         progressText = findViewById(R.id.progress_text);
@@ -72,6 +91,12 @@ public class MainActivity extends AppCompatActivity {
         btnShowCalories = findViewById(R.id.btnShowCalories);
 
         updateProgress("steps");
+
+        Intent intent = new Intent(this, StepCounterService.class);
+        startService(intent);
+
+        IntentFilter intentFilter = new IntentFilter("com.example.androidjava.FitnessTracker.STEP_COUNT");
+        registerReceiver(receiver, intentFilter);
 
         // Show steps on button click
         btnShowSteps.setOnClickListener(new View.OnClickListener() {

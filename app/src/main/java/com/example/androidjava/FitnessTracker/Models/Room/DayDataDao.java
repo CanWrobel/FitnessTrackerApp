@@ -2,6 +2,7 @@ package com.example.androidjava.FitnessTracker.Models.Room;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -18,4 +19,6 @@ public interface DayDataDao {
     @Query("SELECT * FROM daydata WHERE datum = :datum")
     DayData getDayDataByDate(Long datum);
 
+    @Query("DELETE FROM daydata")
+    void deleteAllDayData();
 }

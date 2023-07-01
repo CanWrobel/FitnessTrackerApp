@@ -41,14 +41,14 @@ public class SetupActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(UserProfileViewModel.class);
         viewModel.initialize(sharedPreferences);
 
-        /**
+
         boolean isFirstRun = viewModel.getSharedPreferences().getBoolean("isFirstRun", true);
         if (!isFirstRun) {
             Intent intent = new Intent(SetupActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
             return;
-        }**/
+        }
 
 
 

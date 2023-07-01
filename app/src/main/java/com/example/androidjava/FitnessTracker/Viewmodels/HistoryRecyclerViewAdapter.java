@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.androidjava.FitnessTracker.Models.Room.DayData;
 import com.example.androidjava.R;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -50,9 +51,13 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = sdf.format(dayDataList.get(position).getDatum());
 
+        DecimalFormat decimalFormat = new DecimalFormat("#.#");
+        double distance = dayDataList.get(position).getDistance();
+        distance = Double.parseDouble(decimalFormat.format(distance));
+
         holder.tvDate.setText(dateString);
         holder.tvSteps.setText("Steps: " + dayDataList.get(position).getSteps());
-        holder.tvDistance.setText("Distance: " + dayDataList.get(position).getDistance() +" km");
+        holder.tvDistance.setText("Distance: " + distance +" km");
         holder.tvCalories.setText("Calories burned: " + dayDataList.get(position).getCalories());
     }
 

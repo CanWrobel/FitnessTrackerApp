@@ -44,7 +44,7 @@ public class StepCounterService extends Service implements SensorEventListener {
 
     private SharedPreferences sharedPreferences;
 
-    private int stepCountOffset = 0;
+    private int stepCountOffset;
 
     private int totalSteps;
     private boolean resetStepCount = false;
@@ -93,53 +93,25 @@ public class StepCounterService extends Service implements SensorEventListener {
             // Calculate & Set steps
             totalSteps = (int) event.values[0];
             stepCount = totalSteps - stepCountOffset;
-            dayData.setSteps(stepCount);
 
             // Calculate & Set distance (to 2 dec places)
             double stepLength = userProfile.getHeight() * 0.414;
             distance = (stepCount * stepLength) / 100000;  // in km
             DecimalFormat decimalFormat = new DecimalFormat("#.##");
             distance = Double.parseDouble(decimalFormat.format(distance));
-            dayData.setDistance(distance);
 
             // Calculate & Set calories
             caloriesBurned = (int) Math.round((stepCount / 2000.0) * 0.57 * userProfile.getWeight());
-            dayData.setCalories(caloriesBurned);
 
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putInt("steps", stepCount);
-            editor.putLong("distance", Double.doubleToRawLongBits(distance));
-            editor.putInt("calories", caloriesBurned);
-            editor.apply();
+            setDayData(stepCount, distance, caloriesBurned);
+            persistData();
 
             // Check if the day has changed
             if (resetStepCount || !isSameDay(new Date(dayData.getDatum()), new Date())) {
                 stepCountOffset = totalSteps;
-                editor.putInt("stepCountOffset", stepCountOffset);
-                editor.apply();
                 resetStepCount = false;
 
-                CountDownLatch latch = new CountDownLatch(1);
-
-                // If the day has changed, save the previous day's data to the database
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        db.dayDataDao().insert(dayData);
-                        latch.countDown();
-                    }
-                }).start();
-
-                // Create a new DayData for the new day
-                try {
-                    latch.await();  // Wait here until latch has counted down to zero
-
-                    // Create a new DayData for the new day
-                    dayData = new DayData(new Date().getTime(), 0, 0.0, 0);
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                saveToDatabase();
             }
 
             Intent intent = new Intent();
@@ -165,6 +137,13 @@ public class StepCounterService extends Service implements SensorEventListener {
             resetStepCount = true;
             stepCountOffset = totalSteps;
             SharedPreferences.Editor editor = sharedPreferences.edit();
+
+            saveToDatabase();
+
+            editor.putInt("steps", dayData.getSteps());
+            editor.putLong("distance", Double.doubleToRawLongBits(dayData.getDistance()));
+            editor.putInt("calories", dayData.getCalories());
+            editor.putLong("datum", dayData.getDatum());
             editor.putInt("stepCountOffset", stepCountOffset);
             editor.apply();
         }
@@ -180,5 +159,38 @@ public class StepCounterService extends Service implements SensorEventListener {
     public void onDestroy() {
         super.onDestroy();
         unregisterReceiver(resetReceiver);
+    }
+
+    private void saveToDatabase(){
+        CountDownLatch latch = new CountDownLatch(1);
+        new Thread(() -> {
+            db.dayDataDao().insert(dayData);
+            latch.countDown();
+        }).start();
+
+        try {
+            latch.await();
+
+            // Create a new DayData for the new day
+            dayData = new DayData(new Date().getTime(), 0, 0.0, 0);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void persistData() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("steps", stepCount);
+        editor.putLong("distance", Double.doubleToRawLongBits(distance));
+        editor.putInt("calories", caloriesBurned);
+        editor.putInt("stepCountOffset", stepCountOffset);
+        editor.putLong("datum", new Date().getTime());
+        editor.apply();
+    }
+
+    private void setDayData(int stepCount, double distance, int caloriesBurned) {
+        dayData.setSteps(stepCount);
+        dayData.setDistance(distance);
+        dayData.setCalories(caloriesBurned);
     }
 }
