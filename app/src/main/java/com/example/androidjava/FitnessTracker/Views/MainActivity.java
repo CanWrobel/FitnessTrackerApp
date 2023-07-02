@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String choice = "steps";
 
+    //TODO habe public gemacht fuer hack
     private DayData dayData;
     private SharedPreferences sharedPreferences;
 
@@ -47,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -81,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     0
             );
         }
+
 
 
         progressBar = findViewById(R.id.progress_bar);
@@ -124,6 +129,12 @@ public class MainActivity extends AppCompatActivity {
                     overridePendingTransition(0,0);
                     return true;
                 }
+                else if (itemId == R.id.nav_input) {
+                    startActivity(new Intent(getApplicationContext(), InputActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                }
+
                 return false;
             }
         });
@@ -184,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+
 
 
 

@@ -60,17 +60,20 @@
             android:textAllCaps="false"
             android:textColor="#FFFFFF" />
 
-        <Button
-            android:id="@+id/footerButton5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/button_background"
-            android:onClick="switchToSettings"
-            android:text="Setting"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/footerButton5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/button_background"
+        android:onClick="switchToSettings"
+        android:text="Setting"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        tools:layout_editor_absoluteX="188dp"
+        tools:layout_editor_absoluteY="397dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

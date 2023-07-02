@@ -7,6 +7,8 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import java.util.Date;
+
 @Database(entities = {DayData.class}, version = 1, exportSchema = false)
 @TypeConverters(DateConverter.class)
 public abstract class DayDataDatabase extends RoomDatabase {
@@ -21,9 +23,12 @@ public abstract class DayDataDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                     DayDataDatabase.class, "day_data_database")
                             .build();
+                    //TODO: hack
+                    INSTANCE.insertTestData();
                 }
             }
         }
+
         return INSTANCE;
     }
 

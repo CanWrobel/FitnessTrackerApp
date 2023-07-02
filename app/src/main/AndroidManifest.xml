@@ -30,6 +30,9 @@
 
         <activity android:name=".FitnessTracker.Views.SettingsActivity" />
 
+        <activity android:name=".FitnessTracker.Views.InputActivity" />
+
+
         <activity android:name=".FitnessTracker.Views.MainActivity" />
 
         <service android:name=".FitnessTracker.Services.StepCounterService"/>
