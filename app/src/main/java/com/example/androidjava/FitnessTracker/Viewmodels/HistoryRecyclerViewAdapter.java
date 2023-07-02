@@ -27,11 +27,11 @@ import java.util.ArrayList;
 public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecyclerViewAdapter.MyViewHolder> {
 
     Context context;
-    //ArrayList<DayDataMessage> dayDataList;
-     ArrayList<DayData> dayDataList;
+    //ArrayList<DayData> dayDataList;
+    ArrayList<DayDataMessage> dayDataList;
 
     //public HistoryRecyclerViewAdapter(Context context, ArrayList<DayData> dayDataList) {
-    public HistoryRecyclerViewAdapter(Context context, ArrayList<DayData> dayDataList) {
+    public HistoryRecyclerViewAdapter(Context context, ArrayList<DayDataMessage> dayDataList) {
         this.context = context;
         this.dayDataList = dayDataList;
     }

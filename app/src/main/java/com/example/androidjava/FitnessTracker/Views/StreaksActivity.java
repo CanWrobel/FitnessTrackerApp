@@ -33,7 +33,7 @@ public class StreaksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_streaks);
 
-        streaksViewModel = new StreaksViewModel(this, getSharedPreferences("data", MODE_PRIVATE));
+        streaksViewModel = new StreaksViewModel( getSharedPreferences("data", MODE_PRIVATE));
 
         // Get CalendarView and TextView
         calendar = findViewById(R.id.calendar);
@@ -58,26 +58,21 @@ public class StreaksActivity extends AppCompatActivity {
 
 
 
-        // Initialize and assign variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-
-        // Set History selected
-        bottomNavigationView.setSelectedItemId(R.id.nav_streaks);
-
-        // Perform item selected listener
+        bottomNavigationView.setSelectedItemId(R.id.nav_main);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
                 if (itemId == R.id.nav_main) {
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    overridePendingTransition(0,0);
                     return true;
                 } else if (itemId == R.id.nav_history) {
                     startActivity(new Intent(getApplicationContext(), HistoryActivity.class));
                     overridePendingTransition(0,0);
                     return true;
                 } else if (itemId == R.id.nav_streaks) {
+                    startActivity(new Intent(getApplicationContext(), StreaksActivity.class));
+                    overridePendingTransition(0,0);
                     return true;
                 }
                 else if (itemId == R.id.nav_settings) {
@@ -85,6 +80,12 @@ public class StreaksActivity extends AppCompatActivity {
                     overridePendingTransition(0,0);
                     return true;
                 }
+                else if (itemId == R.id.nav_input) {
+                    startActivity(new Intent(getApplicationContext(), InputActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                }
+
                 return false;
             }
         });

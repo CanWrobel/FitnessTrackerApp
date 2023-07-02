@@ -25,6 +25,8 @@ public class HistoryViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<DayData>> getAllDayData() {
+        LiveData<List<DayData>> nog = allDayData;
+
         return allDayData;
     }
 }

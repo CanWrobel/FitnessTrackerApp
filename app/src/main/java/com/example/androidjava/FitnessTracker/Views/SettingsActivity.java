@@ -40,19 +40,15 @@ public class SettingsActivity extends AppCompatActivity {
         fillInputFields();
 
         // Initialize and assign variable
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         // Set History selected
-        bottomNavigationView.setSelectedItemId(R.id.nav_settings);
-
-        // Perform item selected listener
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.nav_main);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
                 if (itemId == R.id.nav_main) {
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    overridePendingTransition(0,0);
                     return true;
                 } else if (itemId == R.id.nav_history) {
                     startActivity(new Intent(getApplicationContext(), HistoryActivity.class));
@@ -64,12 +60,19 @@ public class SettingsActivity extends AppCompatActivity {
                     return true;
                 }
                 else if (itemId == R.id.nav_settings) {
+                    startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                    overridePendingTransition(0,0);
                     return true;
                 }
+                else if (itemId == R.id.nav_input) {
+                    startActivity(new Intent(getApplicationContext(), InputActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                }
+
                 return false;
             }
-        });
-    }
+        });    }
 
     private void fillInputFields() {
         UserProfile userProfile = userProfileViewModel.getUserProfile();

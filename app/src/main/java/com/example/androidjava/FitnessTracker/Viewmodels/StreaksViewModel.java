@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
  * https://github.com/Thanvandh/Date-Range-Highlight
  */
 public class StreaksViewModel extends ViewModel implements IStreaksViewModel {
+    /*
     private List<DayData> allData;
     private UserProfile userProfile;
     private UserProfileViewModel userProfileViewModel;
@@ -39,7 +40,8 @@ public class StreaksViewModel extends ViewModel implements IStreaksViewModel {
 
         CountDownLatch latch = new CountDownLatch(1);
         new Thread(() -> {
-            allData = dayDataDao.getAllDayData().getValue();
+            //allData = dayDataDao.getAllDayData().getValue();
+            allData = dayDataDao.getAllDayDataList();
             latch.countDown();
         }).start();
 
@@ -53,12 +55,12 @@ public class StreaksViewModel extends ViewModel implements IStreaksViewModel {
             e.printStackTrace();
         }
 
+        Collections.sort(this.allData, Comparator.comparing(DayData::getDatum));
 
     }
 
     public StreaksViewModel(@NonNull DayDataDao dayDataDao, SharedPreferences sharedPreferences) {
         this.dayDataDao = dayDataDao;
-
         allData = dayDataDao.getAllDayDataList();
 
         userProfileViewModel = new UserProfileViewModel();
@@ -205,27 +207,11 @@ public class StreaksViewModel extends ViewModel implements IStreaksViewModel {
             default:
                 return datesIndependent;
         }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }*/
 
 
     // Nutzt Dummy
-    /*
+
     private List<DayDataMessage> allData;
     private UserProfile userProfile;
     private UserProfileViewModel userProfileViewModel;
@@ -318,9 +304,9 @@ public class StreaksViewModel extends ViewModel implements IStreaksViewModel {
             }
         }
         return streakDays;
-    }*/
+    }
 
-    /*
+
     public List<CalendarDay> getDatePartToHighlight(List<Date> dateList, String part) {
         List<CalendarDay> calendarDayList = dateList.stream()
                 .map(date -> CalendarDay.from(date))
@@ -378,6 +364,6 @@ public class StreaksViewModel extends ViewModel implements IStreaksViewModel {
             default:
                 return datesIndependent;
         }
-    }*/
+    }
 
 }

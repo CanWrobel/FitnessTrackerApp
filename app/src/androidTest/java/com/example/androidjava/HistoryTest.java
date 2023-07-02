@@ -38,6 +38,7 @@ public class HistoryTest {
         testDb.dayDataDao().insert(new DayData(1L, 1000, 1.2, 200));
         testDb.dayDataDao().insert(new DayData(2L, 2000, 2.3, 250));
         testDb.dayDataDao().insert(new DayData(3L, 3000, 3.4, 300));
+        //testDb.dayDataDao().deleteAllDayData();
     }
 
     @Test

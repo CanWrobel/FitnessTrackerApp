@@ -3,8 +3,6 @@ package com.example.androidjava.FitnessTracker.Views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,8 +25,8 @@ import java.util.List;
 
 public class HistoryActivity extends AppCompatActivity {
 
-    //ArrayList<DayDataMessage> dayDataList = new ArrayList<>();
-    ArrayList<DayData> dayDataList = new ArrayList<>();
+    ArrayList<DayDataMessage> dayDataList = new ArrayList<>();
+    //ArrayList<DayData> dayDataList = new ArrayList<>();
     private HistoryViewModel viewModel;
     HistoryRecyclerViewAdapter adapter;
 
@@ -50,35 +48,45 @@ public class HistoryActivity extends AppCompatActivity {
 
 
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-        bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        // Initialize and assign variable
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.nav_main);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                Intent intent;
-
                 int itemId = item.getItemId();
                 if (itemId == R.id.nav_main) {
-                    intent = new Intent(getApplicationContext(), MainActivity.class);
-                } else if (itemId == R.id.nav_streaks) {
-                    intent = new Intent(getApplicationContext(), StreaksActivity.class);
+                    return true;
                 } else if (itemId == R.id.nav_history) {
-                    intent = new Intent(getApplicationContext(), HistoryActivity.class);
-                } else {
-                    // handle more items if needed
-                    return false;
+                    startActivity(new Intent(getApplicationContext(), HistoryActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                } else if (itemId == R.id.nav_streaks) {
+                    startActivity(new Intent(getApplicationContext(), StreaksActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                }
+                else if (itemId == R.id.nav_settings) {
+                    startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                }
+                else if (itemId == R.id.nav_input) {
+                    startActivity(new Intent(getApplicationContext(), InputActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
                 }
 
-
-                startActivity(intent);
-                return true;
+                return false;
             }
         });
+
 
     }
 
     private void setUpDayDataList() {
 
+        /*
         viewModel.getAllDayData().observe(this, new Observer<List<DayData>>() {
             @Override
             public void onChanged(List<DayData> dayData) {
@@ -87,9 +95,9 @@ public class HistoryActivity extends AppCompatActivity {
                 dayDataList.addAll(dayData);
                 adapter.notifyDataSetChanged();
             }
-        });
+        });*/
 
-        /**
+
         DatenbankDummy dummy = new DatenbankDummy();
 
         List<DayDataMessage> list = dummy.fetchAllFitnessData();
@@ -115,35 +123,9 @@ public class HistoryActivity extends AppCompatActivity {
          for (int i = 0; i < dates.length; i++) {
          dayDataList.add(new DayDataMessage(steps[i], dates[i],distance[i], calories[i]));
          }
-         **/
+         */
 
 
 
-    }
-
-    public void switchToMain(View view) {
-        Intent intent = new Intent(HistoryActivity.this, MainActivity.class);
-        startActivity(intent);
-    }
-
-    public void switchToStreaks(View view) {
-        Intent intent = new Intent(HistoryActivity.this, StreaksActivity.class);
-        startActivity(intent);
-    }
-
-    public void switchToHistory(View view) {
-        Intent intent = new Intent(HistoryActivity.this, HistoryActivity.class);
-        startActivity(intent);
-    }
-
-    public void switchToSample(View v){
-        setContentView(R.layout.sample_input);
-    }
-
-    public void switchToSettings(View v){
-        //TODO
-        Button btn = findViewById(R.id.footerButton5);
-
-        btn.setText("Drueck");
     }
 }

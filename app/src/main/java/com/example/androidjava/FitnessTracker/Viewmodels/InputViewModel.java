@@ -47,4 +47,17 @@ public class InputViewModel {
 
         return distance;
     }
+
+    public static double calculateDistanceFromStepsStatic(int stepCount, double height) {
+        double stepLength = height * 0.414;
+        double distance =  ((stepCount * stepLength) / 100000);
+
+
+        return distance;
+    }
+    public static int calculateCaloriesFromStepsStatic(int stepCount, double weight) {
+        int calories = (int) Math.round((stepCount / 2000.0) * 0.57 * weight);
+
+        return calories;
+    }
 }
