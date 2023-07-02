@@ -16,6 +16,9 @@ public interface DayDataDao {
     @Query("SELECT * FROM daydata")
     LiveData<List<DayData>> getAllDayData();
 
+    @Query("SELECT * FROM daydata")
+    List<DayData> getAllDayDataList();
+
     @Query("SELECT * FROM daydata WHERE datum = :datum")
     DayData getDayDataByDate(Long datum);
 

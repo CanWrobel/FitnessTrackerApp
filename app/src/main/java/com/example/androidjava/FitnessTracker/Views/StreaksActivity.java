@@ -33,7 +33,7 @@ public class StreaksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_streaks);
 
-        streaksViewModel = new StreaksViewModel(getSharedPreferences("data", MODE_PRIVATE));
+        streaksViewModel = new StreaksViewModel(this, getSharedPreferences("data", MODE_PRIVATE));
 
         // Get CalendarView and TextView
         calendar = findViewById(R.id.calendar);

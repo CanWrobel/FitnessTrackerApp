@@ -86,8 +86,8 @@ public class UserProfileViewModel extends ViewModel {
     }
 
     public void setCaloriesGoal(int stepsGoal) {
-        int calorieGoal = (int) Math.round((userProfile.getStepsGoal() / 2000.0) * 0.57 * userProfile.getWeight());// Calculate & Set distance (to 2 dec places)
-        double stepLength = userProfile.getHeight() * 0.414;
+        int calorieGoal = (int) Math.round((userProfile.getStepsGoal() / 2000.0) * 0.57
+                * userProfile.getWeight());// Calculate & Set distance (to 2 dec places)
         this.userProfile.setCaloriesGoal(calorieGoal);
     }
 

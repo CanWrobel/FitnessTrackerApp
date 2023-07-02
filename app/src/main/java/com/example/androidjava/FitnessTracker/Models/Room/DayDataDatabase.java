@@ -27,6 +27,10 @@ public abstract class DayDataDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
+    public static void setInstance(DayDataDatabase instance) {
+        INSTANCE = instance;
+    }
+
     public void insertTestData() {
         new Thread(() -> {
             DayData dayData1 = new DayData(System.currentTimeMillis() - 24*60*60*1000, 1000, 5.0, 500);
