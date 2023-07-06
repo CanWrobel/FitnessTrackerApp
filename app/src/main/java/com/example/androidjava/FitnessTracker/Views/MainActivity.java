@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent("com.example.androidjava.FitnessTracker.RESET_STEP_COUNT");
         sendBroadcast(intent);
         Button btnEndDay = findViewById(R.id.btnEndDay);
-        //btnEndDay.setVisibility(View.GONE);
+        btnEndDay.setVisibility(View.GONE);
     }
 
     public void showSteps(View view) {

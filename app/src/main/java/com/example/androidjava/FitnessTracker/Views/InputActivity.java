@@ -29,7 +29,7 @@ public class InputActivity extends AppCompatActivity {
         inputSteps = findViewById(R.id.etSteps);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.nav_main);
+        bottomNavigationView.setSelectedItemId(R.id.nav_input);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -51,8 +51,6 @@ public class InputActivity extends AppCompatActivity {
                     return true;
                 }
                 else if (itemId == R.id.nav_input) {
-                    startActivity(new Intent(getApplicationContext(), InputActivity.class));
-                    overridePendingTransition(0,0);
                     return true;
                 }
 

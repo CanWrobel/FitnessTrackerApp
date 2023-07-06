@@ -7,14 +7,14 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.androidjava.FitnessTracker.Models.UserProfile;
 
-public class UserProfileViewModel extends ViewModel {
+public class UserProfileViewModel extends ViewModel implements IUserProfileViewModel {
     private UserProfile userProfile;
     private SharedPreferences sharedPreferences;
 
     public UserProfileViewModel() {
     }
 
-    private void loadUserProfile() {
+    public void loadUserProfile() {
         String name = sharedPreferences.getString("name", "");
         int age = sharedPreferences.getInt("age", 0);
         int height = sharedPreferences.getInt("height", 0);
@@ -24,7 +24,7 @@ public class UserProfileViewModel extends ViewModel {
         this.userProfile = new UserProfile(name, age, height, weight, stepsGoal);
     }
 
-    private void saveUserProfile() {
+    public void saveUserProfile() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("name", userProfile.getName());
         editor.putInt("age", userProfile.getAge());

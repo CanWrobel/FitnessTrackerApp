@@ -20,7 +20,7 @@ public class HistoryViewModel extends AndroidViewModel {
         super(application);
         database = DayDataDatabase.getDatabase(application);
         //database.insertTestData();
-       // database.dayDataDao().deleteAllDayData();
+        //database.dayDataDao().deleteAllDayData();
         allDayData = database.dayDataDao().getAllDayData();
     }
 
