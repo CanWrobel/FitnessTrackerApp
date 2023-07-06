@@ -1,16 +1,11 @@
 package com.example.androidjava.FitnessTracker.Viewmodels;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
 import com.example.androidjava.FitnessTracker.Models.DatenbankDummy;
 import com.example.androidjava.FitnessTracker.Models.DayDataMessage;
-import com.example.androidjava.FitnessTracker.Models.Room.DayData;
-import com.example.androidjava.FitnessTracker.Models.Room.DayDataDao;
-import com.example.androidjava.FitnessTracker.Models.Room.DayDataDatabase;
 import com.example.androidjava.FitnessTracker.Models.UserProfile;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
@@ -20,13 +15,19 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.CountDownLatch;
 import java.util.stream.Collectors;
 
 
-/**
+/*
+ * Date-Range-Highlight im Kalender:
+ * Angepasste Implementierung, originale Implementierung von:
+ * Author: Thanvandh
+ * Repo: Date-Range-Highlight
  * https://github.com/Thanvandh/Date-Range-Highlight
+ *
+ *
+ * Material-Calendarview library source code:
+ * https://github.com/prolificinteractive/material-calendarview
  */
 public class StreaksViewModel extends ViewModel implements IStreaksViewModel {
     /*

@@ -84,50 +84,42 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void saveChanges(View view) {
-        if (validateInputs()) {
-            int age = Integer.parseInt(settingsAge.getText().toString());
-            int height = Integer.parseInt(settingsHeight.getText().toString());
-            double weight = Double.parseDouble(settingsWeight.getText().toString());
-            int stepsGoal = Integer.parseInt(settingsStepsGoal.getText().toString());
+        String name = settingsName.getText().toString();
+        String age = settingsAge.getText().toString();
+        String height = settingsHeight.getText().toString();
+        String weight = settingsWeight.getText().toString();
+        String stepsGoal = settingsStepsGoal.getText().toString();
 
+        if (!userProfileViewModel.validateName(name)) {
+            settingsName.setError(userProfileViewModel.getValidationMessage().getValue());
+        }
+
+        else if (!userProfileViewModel.validateAge(age)) {
+            settingsAge.setError(userProfileViewModel.getValidationMessage().getValue());
+        }
+
+        else if (!userProfileViewModel.validateHeight(height)) {
+            settingsHeight.setError(userProfileViewModel.getValidationMessage().getValue());
+        }
+
+        else if (!userProfileViewModel.validateWeight(weight)) {
+            settingsWeight.setError(userProfileViewModel.getValidationMessage().getValue());
+        }
+
+        else if (!userProfileViewModel.validateStepsGoal(stepsGoal)) {
+            settingsStepsGoal.setError(userProfileViewModel.getValidationMessage().getValue());
+        }
+
+        else {
             userProfileViewModel.updateUserProfile(
-                    settingsName.getText().toString(),
-                    age,
-                    height,
-                    weight,
-                    stepsGoal
+                    name,
+                    Integer.parseInt(age),
+                    Integer.parseInt(height),
+                    Double.parseDouble(weight),
+                    Integer.parseInt(stepsGoal)
             );
-
             Toast.makeText(this, "Changes saved!", Toast.LENGTH_SHORT).show();
         }
-    }
 
-    private boolean validateInputs() {
-        if (settingsName.getText().toString().isEmpty()) {
-            settingsName.setError("Name field cannot be empty");
-            return false;
-        }
-
-        if (settingsAge.getText().toString().isEmpty()) {
-            settingsAge.setError("Age field cannot be empty");
-            return false;
-        }
-
-        if (settingsHeight.getText().toString().isEmpty()) {
-            settingsHeight.setError("Height field cannot be empty");
-            return false;
-        }
-
-        if (settingsWeight.getText().toString().isEmpty()) {
-            settingsWeight.setError("Weight field cannot be empty");
-            return false;
-        }
-
-        if (settingsStepsGoal.getText().toString().isEmpty()) {
-            settingsStepsGoal.setError("Goal Steps field cannot be empty");
-            return false;
-        }
-
-        return true;
     }
 }

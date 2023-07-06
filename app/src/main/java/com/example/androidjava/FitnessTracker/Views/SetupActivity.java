@@ -24,8 +24,6 @@ public class SetupActivity extends AppCompatActivity {
     private int height;
     private double weight;
     private int stepsGoal;
-    private float distanceGoal;
-    private int caloriesGoal;
 
     private SharedPreferences sharedPreferences;
 
@@ -38,16 +36,14 @@ public class SetupActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(UserProfileViewModel.class);
         viewModel.initialize(sharedPreferences);
 
-        /*
-        boolean isFirstRun = viewModel.getSharedPreferences().getBoolean("isFirstRun", true);
+
+        boolean isFirstRun = viewModel.getFirstRunFromRepo();
         if (!isFirstRun) {
             Intent intent = new Intent(SetupActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
             return;
-        }*/
-
-
+        }
 
         viewFlipper = findViewById(R.id.view_flipper);
 
@@ -60,10 +56,10 @@ public class SetupActivity extends AppCompatActivity {
 
     public void nextButton1Click(View view) {
         name = nameInput.getText().toString();
-        if (name.isEmpty()) {
-            nameInput.setError("Name cannot be empty");
-        } else {
+        if (viewModel.validateName(name)) {
             viewFlipper.showNext();
+        } else {
+            nameInput.setError(viewModel.getValidationMessage().toString());
         }
     }
 
@@ -72,12 +68,12 @@ public class SetupActivity extends AppCompatActivity {
         String heightString = heightInput.getText().toString();
         String weightString = weightInput.getText().toString();
 
-        if (ageString.isEmpty()) {
-            ageInput.setError("Age cannot be empty");
-        } if (heightString.isEmpty()) {
-            heightInput.setError("Height cannot be empty");
-        } else if (weightString.isEmpty()) {
-            weightInput.setError("Weight cannot be empty");
+        if (!viewModel.validateAge(ageString)) {
+            ageInput.setError(viewModel.getValidationMessage().toString());
+        } else if (!viewModel.validateHeight(heightString)) {
+            heightInput.setError(viewModel.getValidationMessage().toString());
+        } else if (!viewModel.validateWeight(weightString)) {
+            weightInput.setError(viewModel.getValidationMessage().toString());
         } else {
             age = Integer.parseInt(ageString);
             height = Integer.parseInt(heightString);
@@ -89,17 +85,12 @@ public class SetupActivity extends AppCompatActivity {
     public void nextButton3Click(View view) {
         String stepsString = stepsInput.getText().toString();
 
-        if (stepsString.isEmpty()) {
-            stepsInput.setError("Steps Goal cannot be empty");
+        if (!viewModel.validateStepsGoal(stepsString)) {
+            stepsInput.setError(viewModel.getValidationMessage().toString());
         } else {
             stepsGoal = Integer.parseInt(stepsString);
-
-
             viewModel.updateUserProfile(name, age, height, weight, stepsGoal);
-
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("isFirstRun", false);
-            editor.apply();
+            viewModel.saveFirstRunToRepo(false);
 
             // Continue to main acitivity page
             Intent intent = new Intent(SetupActivity.this, MainActivity.class);

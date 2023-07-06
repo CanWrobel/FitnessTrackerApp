@@ -13,10 +13,6 @@ public interface IUserProfileViewModel {
      */
     void loadUserProfile();
 
-    /**
-     * Save user profile to shared preferences.
-     */
-    void saveUserProfile();
 
     /**
      * Update user profile with the provided values.

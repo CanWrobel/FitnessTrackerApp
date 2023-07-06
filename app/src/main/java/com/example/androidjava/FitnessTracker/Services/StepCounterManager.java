@@ -1,4 +1,4 @@
-package com.example.androidjava.FitnessTracker.Viewmodels;
+package com.example.androidjava.FitnessTracker.Services;
 
 import android.content.Context;
 import android.content.SharedPreferences;
