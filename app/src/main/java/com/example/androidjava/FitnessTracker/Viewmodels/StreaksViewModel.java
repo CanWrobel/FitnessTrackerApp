@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.androidjava.FitnessTracker.Models.DatenbankDummy;
 import com.example.androidjava.FitnessTracker.Models.DayDataMessage;
 import com.example.androidjava.FitnessTracker.Models.UserProfile;
+import com.example.androidjava.FitnessTracker.Models.UserProfileRepository;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.util.ArrayList;

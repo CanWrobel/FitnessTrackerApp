@@ -1,37 +1,55 @@
-package com.example.androidjava;
+package com.example.androidjava.FitnessTracker.Views;
 
 
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasErrorText;
 import static androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
+import static org.mockito.Mockito.when;
+
 import androidx.test.espresso.Espresso;
-import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
+import com.example.androidjava.FitnessTracker.Viewmodels.UserProfileViewModel;
 import com.example.androidjava.FitnessTracker.Views.SetupActivity;
+import com.example.androidjava.R;
 
-import org.hamcrest.Matchers;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 public class SetupActivityTest {
-
-    ViewInteraction viewInteraction;
 
     @Rule
     public ActivityScenarioRule<SetupActivity> activityScenarioRule
             = new ActivityScenarioRule<>(SetupActivity.class);
 
+    @Mock
+    UserProfileViewModel mockViewModel;
+
+    @Before
+    public void setup() {
+        MockitoAnnotations.openMocks(this);
+        when(mockViewModel.getFirstRunFromRepo()).thenReturn(true);
+    }
+
+    @After
+    public void tearDown() {
+        activityScenarioRule.getScenario().close();
+    }
+
    @Test
     public void allELementsPresentFirstPage() {
-       Espresso.onView(withId(R.id.btnNext1)).check(matches(isDisplayed()));
+       Espresso.onView(ViewMatchers.withId(R.id.btnNext1)).check(matches(isDisplayed()));
        Espresso.onView(withId(R.id.inputNameLabel)).check(matches(isDisplayed()));
        Espresso.onView(withId(R.id.inputName)).check(matches(isDisplayed()));
    }
@@ -126,10 +144,10 @@ public class SetupActivityTest {
    }
 
    @Test
-   public void errorTextPresentTest() {
+   public void errorTextPresentEmptyInputsTest() {
        // First page
        Espresso.onView(ViewMatchers.withId(R.id.btnNext1)).perform(ViewActions.click());
-       Espresso.onView(ViewMatchers.withId(R.id.inputName)).check(matches(hasErrorText("Name cannot be empty")));
+       Espresso.onView(ViewMatchers.withId(R.id.inputName)).check(matches(hasErrorText("Name field cannot be empty")));
 
        Espresso.onView(ViewMatchers.withId(R.id.inputName)).perform(ViewActions.typeText("Reinardus"));
        Espresso.closeSoftKeyboard();
@@ -138,19 +156,19 @@ public class SetupActivityTest {
        // Second page
        Espresso.onView(ViewMatchers.withId(R.id.btnNext2)).perform(ViewActions.click());
        Espresso.onView(ViewMatchers.withId(R.id.inputAge))
-               .check(matches(hasErrorText("Age cannot be empty")));
+               .check(matches(hasErrorText("Age field cannot be empty")));
        Espresso.onView(ViewMatchers.withId(R.id.inputAge)).perform(ViewActions.typeText("20"));
        Espresso.closeSoftKeyboard();
 
        Espresso.onView(ViewMatchers.withId(R.id.btnNext2)).perform(ViewActions.click());
        Espresso.onView(ViewMatchers.withId(R.id.inputHeight))
-               .check(matches(hasErrorText("Height cannot be empty")));
+               .check(matches(hasErrorText("Height field cannot be empty")));
        Espresso.onView(ViewMatchers.withId(R.id.inputHeight)).perform(ViewActions.typeText("180"));
        Espresso.closeSoftKeyboard();
 
        Espresso.onView(ViewMatchers.withId(R.id.btnNext2)).perform(ViewActions.click());
        Espresso.onView(ViewMatchers.withId(R.id.inputWeight))
-               .check(matches(hasErrorText("Weight cannot be empty")));
+               .check(matches(hasErrorText("Weight field cannot be empty")));
        Espresso.onView(ViewMatchers.withId(R.id.inputWeight)).perform(ViewActions.typeText("88"));
        Espresso.closeSoftKeyboard();
 
@@ -160,9 +178,115 @@ public class SetupActivityTest {
 
        Espresso.onView(ViewMatchers.withId(R.id.btnNext3)).perform(ViewActions.click());
        Espresso.onView(ViewMatchers.withId(R.id.inputSteps))
-               .check(matches(hasErrorText("Steps Goal cannot be empty")));
-
+               .check(matches(hasErrorText("Steps goal field cannot be empty")));
 
 
    }
+
+    @Test
+    public void errorTextPresentFaultyAgeInputTest() {
+        // First page
+        Espresso.onView(ViewMatchers.withId(R.id.inputName)).perform(ViewActions.typeText("Reinardus"));
+        Espresso.closeSoftKeyboard();
+        Espresso.onView(ViewMatchers.withId(R.id.btnNext1)).perform(ViewActions.click());
+
+        // Second page
+
+        // Input age 0 and 105 cause error
+        String ageErrorMessage = "Please enter a valid age";
+
+        Espresso.onView(ViewMatchers.withId(R.id.inputAge)).perform(ViewActions.typeText("0"));
+        Espresso.closeSoftKeyboard();
+
+        Espresso.onView(ViewMatchers.withId(R.id.btnNext2)).perform(ViewActions.click());
+
+        Espresso.onView(ViewMatchers.withId(R.id.inputAge))
+                .check(matches(hasErrorText(ageErrorMessage)));
+
+        Espresso.onView(ViewMatchers.withId(R.id.inputAge)).perform(ViewActions.typeText("105"));
+        Espresso.closeSoftKeyboard();
+
+        Espresso.onView(ViewMatchers.withId(R.id.btnNext2)).perform(ViewActions.click());
+
+        Espresso.onView(ViewMatchers.withId(R.id.inputAge))
+                .check(matches(hasErrorText(ageErrorMessage)));
+
+    }
+
+    @Test
+    public void errorTextPresentFaultyHeightInputTest() {
+        // First page setup
+        Espresso.onView(ViewMatchers.withId(R.id.btnNext1)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.inputName)).check(matches(hasErrorText("Name field cannot be empty")));
+
+        Espresso.onView(ViewMatchers.withId(R.id.inputName)).perform(ViewActions.typeText("Reinardus"));
+        Espresso.closeSoftKeyboard();
+        Espresso.onView(ViewMatchers.withId(R.id.btnNext1)).perform(ViewActions.click());
+
+        // Second page
+
+        // Input age 0 and 105 cause error
+        String heightErrorMessage = "Please enter a valid height";
+
+        Espresso.onView(ViewMatchers.withId(R.id.inputAge)).perform(ViewActions.typeText("20"));
+        Espresso.closeSoftKeyboard();
+
+        Espresso.onView(ViewMatchers.withId(R.id.inputHeight)).perform(ViewActions.typeText("0"));
+        Espresso.closeSoftKeyboard();
+
+        Espresso.onView(ViewMatchers.withId(R.id.btnNext2)).perform(ViewActions.click());
+
+        Espresso.onView(ViewMatchers.withId(R.id.inputHeight))
+                .check(matches(hasErrorText(heightErrorMessage)));
+
+        Espresso.onView(ViewMatchers.withId(R.id.inputHeight)).perform(ViewActions.typeText("240"));
+        Espresso.closeSoftKeyboard();
+
+        Espresso.onView(ViewMatchers.withId(R.id.btnNext2)).perform(ViewActions.click());
+
+        Espresso.onView(ViewMatchers.withId(R.id.inputHeight))
+                .check(matches(hasErrorText(heightErrorMessage)));
+
+    }
+
+    @Test
+    public void errorTextPresentFaultyWeightInputTest() {
+        // First page setup
+        Espresso.onView(ViewMatchers.withId(R.id.btnNext1)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.inputName)).check(matches(hasErrorText("Name field cannot be empty")));
+
+        Espresso.onView(ViewMatchers.withId(R.id.inputName)).perform(ViewActions.typeText("Reinardus"));
+        Espresso.closeSoftKeyboard();
+        Espresso.onView(ViewMatchers.withId(R.id.btnNext1)).perform(ViewActions.click());
+
+        // Second page
+
+        // Input age 0 and 105 cause error
+        String weightErrorMessage = "Please enter a valid weight";
+
+        Espresso.onView(ViewMatchers.withId(R.id.inputAge)).perform(ViewActions.typeText("20"));
+        Espresso.closeSoftKeyboard();
+
+        Espresso.onView(ViewMatchers.withId(R.id.inputHeight)).perform(ViewActions.typeText("180"));
+        Espresso.closeSoftKeyboard();
+
+        Espresso.onView(ViewMatchers.withId(R.id.btnNext2)).perform(ViewActions.click());
+
+        Espresso.onView(ViewMatchers.withId(R.id.inputWeight)).perform(ViewActions.typeText("300"));
+        Espresso.closeSoftKeyboard();
+
+
+        Espresso.onView(ViewMatchers.withId(R.id.btnNext2)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.inputWeight))
+                .check(matches(hasErrorText(weightErrorMessage)));
+
+        Espresso.onView(ViewMatchers.withId(R.id.inputWeight)).perform(ViewActions.typeText("0"));
+        Espresso.closeSoftKeyboard();
+
+
+        Espresso.onView(ViewMatchers.withId(R.id.btnNext2)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.inputWeight))
+                .check(matches(hasErrorText(weightErrorMessage)));
+
+    }
 }

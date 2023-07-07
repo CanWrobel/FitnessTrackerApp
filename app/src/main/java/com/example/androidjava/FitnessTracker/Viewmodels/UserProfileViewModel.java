@@ -62,7 +62,7 @@ public class UserProfileViewModel extends ViewModel {
         }
 
         if (Integer.parseInt(age) == 0 || Integer.parseInt(age) > 101) {
-            validationMessage.setValue("Please enter a valid age.");
+            validationMessage.setValue("Please enter a valid age");
             return false;
         }
         return true;
@@ -70,11 +70,11 @@ public class UserProfileViewModel extends ViewModel {
 
     public boolean validateHeight(String height) {
         if (height.isEmpty()) {
-            validationMessage.setValue("Height field cannot be empty or less than 140 cm");
+            validationMessage.setValue("Height field cannot be empty");
             return false;
         }
         if (Integer.parseInt(height) < 100 || Integer.parseInt(height) > 230) {
-            validationMessage.setValue("Please enter a valid height.");
+            validationMessage.setValue("Please enter a valid height");
             return false;
         }
         return true;
@@ -82,12 +82,12 @@ public class UserProfileViewModel extends ViewModel {
 
     public boolean validateWeight(String weight) {
         if (weight.isEmpty()) {
-            validationMessage.setValue("Weight field cannot be empty or less than 30 kg");
+            validationMessage.setValue("Weight field cannot be empty");
             return false;
         }
 
         if (Double.parseDouble(weight) < 30 || Double.parseDouble(weight) > 250) {
-            validationMessage.setValue("Please enter a valid weight.");
+            validationMessage.setValue("Please enter a valid weight");
             return false;
         }
         return true;
@@ -95,12 +95,12 @@ public class UserProfileViewModel extends ViewModel {
 
     public boolean validateStepsGoal(String stepsGoal) {
         if (stepsGoal.isEmpty()) {
-            validationMessage.setValue("Goal Steps field cannot be empty or less than 100");
+            validationMessage.setValue("Steps goal field cannot be empty");
             return false;
         }
 
         if (Integer.parseInt(stepsGoal) < 100 || Integer.parseInt(stepsGoal) > 50000) {
-            validationMessage.setValue("Please enter a valid steps goal.");
+            validationMessage.setValue("Please enter a valid steps goal");
             return false;
         }
         return true;

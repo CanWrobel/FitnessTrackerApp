@@ -36,7 +36,6 @@ public class SetupActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(UserProfileViewModel.class);
         viewModel.initialize(sharedPreferences);
 
-
         boolean isFirstRun = viewModel.getFirstRunFromRepo();
         if (!isFirstRun) {
             Intent intent = new Intent(SetupActivity.this, MainActivity.class);
@@ -59,7 +58,7 @@ public class SetupActivity extends AppCompatActivity {
         if (viewModel.validateName(name)) {
             viewFlipper.showNext();
         } else {
-            nameInput.setError(viewModel.getValidationMessage().toString());
+            nameInput.setError(viewModel.getValidationMessage().getValue());
         }
     }
 
@@ -69,11 +68,11 @@ public class SetupActivity extends AppCompatActivity {
         String weightString = weightInput.getText().toString();
 
         if (!viewModel.validateAge(ageString)) {
-            ageInput.setError(viewModel.getValidationMessage().toString());
+            ageInput.setError(viewModel.getValidationMessage().getValue());
         } else if (!viewModel.validateHeight(heightString)) {
-            heightInput.setError(viewModel.getValidationMessage().toString());
+            heightInput.setError(viewModel.getValidationMessage().getValue());
         } else if (!viewModel.validateWeight(weightString)) {
-            weightInput.setError(viewModel.getValidationMessage().toString());
+            weightInput.setError(viewModel.getValidationMessage().getValue());
         } else {
             age = Integer.parseInt(ageString);
             height = Integer.parseInt(heightString);
@@ -86,7 +85,7 @@ public class SetupActivity extends AppCompatActivity {
         String stepsString = stepsInput.getText().toString();
 
         if (!viewModel.validateStepsGoal(stepsString)) {
-            stepsInput.setError(viewModel.getValidationMessage().toString());
+            stepsInput.setError(viewModel.getValidationMessage().getValue());
         } else {
             stepsGoal = Integer.parseInt(stepsString);
             viewModel.updateUserProfile(name, age, height, weight, stepsGoal);

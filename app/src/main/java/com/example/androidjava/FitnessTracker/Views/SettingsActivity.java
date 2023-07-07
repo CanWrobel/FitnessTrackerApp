@@ -43,12 +43,14 @@ public class SettingsActivity extends AppCompatActivity {
 
         // Set History selected
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.nav_main);
+        bottomNavigationView.setSelectedItemId(R.id.nav_settings);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
                 if (itemId == R.id.nav_main) {
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    overridePendingTransition(0,0);
                     return true;
                 } else if (itemId == R.id.nav_history) {
                     startActivity(new Intent(getApplicationContext(), HistoryActivity.class));
@@ -60,8 +62,6 @@ public class SettingsActivity extends AppCompatActivity {
                     return true;
                 }
                 else if (itemId == R.id.nav_settings) {
-                    startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-                    overridePendingTransition(0,0);
                     return true;
                 }
                 else if (itemId == R.id.nav_input) {

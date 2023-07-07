@@ -6,7 +6,7 @@ public class UserProfileRepository {
     private static UserProfileRepository instance;
     private final SharedPreferences sharedPreferences;
 
-    private UserProfileRepository(SharedPreferences sharedPreferences) {
+    public UserProfileRepository(SharedPreferences sharedPreferences) {
         this.sharedPreferences = sharedPreferences;
     }
 

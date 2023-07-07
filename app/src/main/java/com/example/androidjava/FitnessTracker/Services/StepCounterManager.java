@@ -7,6 +7,7 @@ import com.example.androidjava.FitnessTracker.Models.Room.DayData;
 import com.example.androidjava.FitnessTracker.Models.Room.DayDataDao;
 import com.example.androidjava.FitnessTracker.Models.Room.DayDataDatabase;
 import com.example.androidjava.FitnessTracker.Models.UserProfile;
+import com.example.androidjava.FitnessTracker.Models.UserProfileRepository;
 import com.example.androidjava.FitnessTracker.Viewmodels.UserProfileViewModel;
 
 import java.text.DecimalFormat;

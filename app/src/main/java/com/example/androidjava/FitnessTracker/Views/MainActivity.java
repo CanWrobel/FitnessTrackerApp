@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.androidjava.FitnessTracker.Models.Room.DayData;
 import com.example.androidjava.FitnessTracker.Models.UserProfile;
+import com.example.androidjava.FitnessTracker.Models.UserProfileRepository;
 import com.example.androidjava.FitnessTracker.Services.StepCounterService;
 import com.example.androidjava.FitnessTracker.Viewmodels.UserProfileViewModel;
 import com.example.androidjava.R;

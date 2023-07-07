@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class UserProfile {
-    private String name = "Reinardus";
+    private String name;
     private int age;
     private int height;
     private double weight;
