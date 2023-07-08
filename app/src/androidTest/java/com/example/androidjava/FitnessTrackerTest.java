@@ -1,4 +1,4 @@
-/*
+
 package com.example.androidjava;
 
 import static androidx.test.espresso.Espresso.onView;
@@ -58,7 +58,7 @@ public class FitnessTrackerTest {
 
     Integration test to see if all components work
     Bob then also changes his weight to 80. Test settings component.
-     * /
+     */
     @Test
     public void FirstUserStoryTest() {
         String name = "Bob";
@@ -91,8 +91,8 @@ public class FitnessTrackerTest {
         Espresso.onView(ViewMatchers.withId(R.id.btnNext3)).perform(click());
         Espresso.onView(withId(R.id.progress_text)).check(matches(isDisplayed()));
 
-        Context context = ApplicationProvider.getApplicationContext();
-        SharedPreferences sharedPreferences = context.getSharedPreferences("data", Context.MODE_PRIVATE);
+        Context testContext = ApplicationProvider.getApplicationContext();
+        SharedPreferences sharedPreferences = testContext.getSharedPreferences("data", Context.MODE_PRIVATE);
 
         assertEquals(name, sharedPreferences.getString("name", ""));
         assertEquals(Integer.parseInt(age), sharedPreferences.getInt("age", 0));
@@ -101,7 +101,7 @@ public class FitnessTrackerTest {
         assertEquals(Integer.parseInt(stepsGoal), sharedPreferences.getInt("stepsGoal", 0));
 
         InputViewModel inputViewModel = new InputViewModel();
-        inputViewModel.initialize(sharedPreferences);
+        inputViewModel.initialize(testContext, sharedPreferences);
 
 
         Calendar calendar = Calendar.getInstance();
@@ -125,9 +125,9 @@ public class FitnessTrackerTest {
 
 
         DayDataDatabase testDb = Room.inMemoryDatabaseBuilder(
-                        ApplicationProvider.getApplicationContext(),
+                        testContext,
                         DayDataDatabase.class
-                ).allowMainThreadQueries() // Allowing main thread queries, just for testing
+                ).allowMainThreadQueries()
                 .build();
 
         DayDataDatabase.setInstance(testDb);
@@ -148,7 +148,7 @@ public class FitnessTrackerTest {
         // Cannot test streaks view using Espresso (Which date highlighted)
         // Limitation between Espresso & MaterialCalendarView
         DayDataDao dayDataDao = testDb.dayDataDao();
-        IStreaksViewModel streaksViewModel = new StreaksViewModel(dayDataDao, sharedPreferences);
+        IStreaksViewModel streaksViewModel = new StreaksViewModel(testDb, sharedPreferences);
         List<Date> currentStreak = streaksViewModel.getCurrentStreakDays();
         int streakCount = streaksViewModel.calculateStreak();
 
@@ -188,4 +188,4 @@ public class FitnessTrackerTest {
     }
 
 }
-*/
+

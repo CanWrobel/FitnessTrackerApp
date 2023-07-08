@@ -4,10 +4,10 @@ import android.content.SharedPreferences;
 
 import androidx.lifecycle.ViewModel;
 
-import com.example.androidjava.FitnessTracker.Models.DatenbankDummy;
-import com.example.androidjava.FitnessTracker.Models.DayDataMessage;
+import com.example.androidjava.FitnessTracker.Models.Room.DayData;
+import com.example.androidjava.FitnessTracker.Models.Room.DayDataDao;
+import com.example.androidjava.FitnessTracker.Models.Room.DayDataDatabase;
 import com.example.androidjava.FitnessTracker.Models.UserProfile;
-import com.example.androidjava.FitnessTracker.Models.UserProfileRepository;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.util.ArrayList;
@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 import java.util.stream.Collectors;
 
 
@@ -31,15 +32,17 @@ import java.util.stream.Collectors;
  * https://github.com/prolificinteractive/material-calendarview
  */
 public class StreaksViewModel extends ViewModel implements IStreaksViewModel {
-    /*
     private List<DayData> allData;
     private UserProfile userProfile;
-    private UserProfileViewModel userProfileViewModel;
+    private IUserProfileViewModel userProfileViewModel;
     private DayDataDao dayDataDao;
 
-    public StreaksViewModel(Context context, SharedPreferences sharedPreferences) {
-        this.dayDataDao = DayDataDatabase.getDatabase(context).dayDataDao();
+    public StreaksViewModel(DayDataDatabase dayDataDatabase, SharedPreferences sharedPreferences) {
+        this.dayDataDao = dayDataDatabase.dayDataDao();
+        initialize(sharedPreferences);
+    }
 
+    private void initialize(SharedPreferences sharedPreferences) {
         CountDownLatch latch = new CountDownLatch(1);
         new Thread(() -> {
             //allData = dayDataDao.getAllDayData().getValue();
@@ -58,16 +61,6 @@ public class StreaksViewModel extends ViewModel implements IStreaksViewModel {
         }
 
         Collections.sort(this.allData, Comparator.comparing(DayData::getDatum));
-
-    }
-
-    public StreaksViewModel(@NonNull DayDataDao dayDataDao, SharedPreferences sharedPreferences) {
-        this.dayDataDao = dayDataDao;
-        allData = dayDataDao.getAllDayDataList();
-
-        userProfileViewModel = new UserProfileViewModel();
-        userProfileViewModel.initialize(sharedPreferences);
-        userProfile = userProfileViewModel.getUserProfile();
     }
 
     public int calculateStreak() {
@@ -209,9 +202,9 @@ public class StreaksViewModel extends ViewModel implements IStreaksViewModel {
             default:
                 return datesIndependent;
         }
-    }*/
-
-
+    }
+}
+    /*
     // Nutzt Dummy
 
     private List<DayDataMessage> allData;
@@ -368,4 +361,4 @@ public class StreaksViewModel extends ViewModel implements IStreaksViewModel {
         }
     }
 
-}
+}*/

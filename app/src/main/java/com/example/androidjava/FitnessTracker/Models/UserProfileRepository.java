@@ -2,7 +2,7 @@ package com.example.androidjava.FitnessTracker.Models;
 
 import android.content.SharedPreferences;
 
-public class UserProfileRepository {
+public class UserProfileRepository implements IUserProfileRepository {
     private static UserProfileRepository instance;
     private final SharedPreferences sharedPreferences;
 

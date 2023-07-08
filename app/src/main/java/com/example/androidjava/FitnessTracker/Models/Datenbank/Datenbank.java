@@ -1,4 +1,4 @@
-package com.example.androidjava.FitnessTracker.Models;
+package com.example.androidjava.FitnessTracker.Models.Datenbank;
 
 import java.util.Date;
 import java.util.List;

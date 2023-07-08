@@ -1,4 +1,4 @@
-package com.example.androidjava.FitnessTracker.Models;
+package com.example.androidjava.FitnessTracker.Models.Datenbank;
 
 import android.os.StrictMode;
 

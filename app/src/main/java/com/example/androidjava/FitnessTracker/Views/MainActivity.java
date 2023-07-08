@@ -87,8 +87,6 @@ public class MainActivity extends AppCompatActivity {
             );
         }
 
-
-
         progressBar = findViewById(R.id.progress_bar);
         progressText = findViewById(R.id.progress_text);
         btnShowSteps = findViewById(R.id.btnShowSteps);

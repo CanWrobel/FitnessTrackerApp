@@ -1,24 +1,21 @@
 package com.example.androidjava.FitnessTracker.Viewmodels;
 
-import android.app.Application;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
+import android.content.Context;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.example.androidjava.FitnessTracker.Models.Room.DayData;
 import com.example.androidjava.FitnessTracker.Models.Room.DayDataDatabase;
 
 import java.util.List;
 
-public class HistoryViewModel extends AndroidViewModel {
+public class HistoryViewModel extends ViewModel {
 
     private LiveData<List<DayData>> allDayData;
     private DayDataDatabase database;
 
-    public HistoryViewModel(@NonNull Application application) {
-        super(application);
-        database = DayDataDatabase.getDatabase(application);
+    public HistoryViewModel(Context context) {
+        database = DayDataDatabase.getDatabase(context);
         //database.insertTestData();
         //database.dayDataDao().deleteAllDayData();
         allDayData = database.dayDataDao().getAllDayData();

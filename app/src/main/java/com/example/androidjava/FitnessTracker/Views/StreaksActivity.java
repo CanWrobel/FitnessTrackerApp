@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.androidjava.FitnessTracker.Models.Room.DayDataDatabase;
 import com.example.androidjava.FitnessTracker.Viewmodels.StreaksViewModel;
 import com.example.androidjava.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -33,7 +34,8 @@ public class StreaksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_streaks);
 
-        streaksViewModel = new StreaksViewModel(getSharedPreferences("data", MODE_PRIVATE));
+        streaksViewModel = new StreaksViewModel(DayDataDatabase.getDatabase(getApplicationContext()),
+                getSharedPreferences("data", MODE_PRIVATE));
 
         // Get CalendarView and TextView
         calendar = findViewById(R.id.calendar);
@@ -54,9 +56,6 @@ public class StreaksActivity extends AppCompatActivity {
         setEvent(currentStreakDays, pink);
 
         calendar.invalidateDecorators();
-
-
-
 
         // Initialize and assign variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -82,6 +81,11 @@ public class StreaksActivity extends AppCompatActivity {
                 }
                 else if (itemId == R.id.nav_settings) {
                     startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                }
+                else if (itemId == R.id.nav_input) {
+                    startActivity(new Intent(getApplicationContext(), InputActivity.class));
                     overridePendingTransition(0,0);
                     return true;
                 }

@@ -1,13 +1,8 @@
-/**
- * https://www.youtube.com/watch?v=Mc0XT58A1Z4
- *
- * Recycler view item click - https://www.youtube.com/watch?v=7GPUpvcU1FE&t=2s
- */
+
 
 package com.example.androidjava.FitnessTracker.Viewmodels;
 
 import android.content.Context;
-import com.example.androidjava.FitnessTracker.Models.*;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.androidjava.FitnessTracker.Models.Datenbank.DayDataMessage;
 import com.example.androidjava.FitnessTracker.Models.Room.DayData;
 import com.example.androidjava.R;
 
@@ -24,14 +20,20 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+/*
+ * History recycler view adapter implementation
+ * based on tutorial by Practical Coding - https://www.youtube.com/watch?v=Mc0XT58A1Z4
+ *
+ */
 public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecyclerViewAdapter.MyViewHolder> {
 
     Context context;
-    //ArrayList<DayData> dayDataList;
-    ArrayList<DayDataMessage> dayDataList;
+    ArrayList<DayData> dayDataList;
 
-    //public HistoryRecyclerViewAdapter(Context context, ArrayList<DayData> dayDataList) {
-    public HistoryRecyclerViewAdapter(Context context, ArrayList<DayDataMessage> dayDataList) {
+    //ArrayList<DayDataMessage> dayDataList;
+
+    public HistoryRecyclerViewAdapter(Context context, ArrayList<DayData> dayDataList) {
+    //public HistoryRecyclerViewAdapter(Context context, ArrayList<DayDataMessage> dayDataList) {
         this.context = context;
         this.dayDataList = dayDataList;
     }

@@ -26,7 +26,7 @@ public class StreaksActivityTest {
             new ActivityScenarioRule<>(StreaksActivity.class);
 
     @Test
-    public void streaksAllElementsExistTest() {
+    public void allElementsPresentTest() {
         Espresso.onView(ViewMatchers.withId(R.id.tvStreakNumber))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
 
@@ -38,7 +38,7 @@ public class StreaksActivityTest {
     }
 
     @Test
-    public void testBottomNavigationFooter() {
+    public void bottomNavigationFooterTest() {
         Intents.init();
         // Navigate to History
         Espresso.onView(ViewMatchers.withId(R.id.nav_history)).perform(ViewActions.click());

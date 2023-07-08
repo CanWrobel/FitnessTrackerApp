@@ -53,7 +53,7 @@ public class StepCounterService extends Service implements SensorEventListener {
     private BroadcastReceiver resetReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            stepCounterManager.resetStepCount();
+            stepCounterManager.saveDataAndResetStepCount();
         }
     };
 

@@ -4,16 +4,23 @@ import static androidx.test.espresso.action.ViewActions.swipeLeft;
 import static androidx.test.espresso.action.ViewActions.swipeRight;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
+import static org.mockito.Mockito.when;
+
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
+import com.example.androidjava.FitnessTracker.Viewmodels.UserProfileViewModel;
 import com.example.androidjava.FitnessTracker.Views.SetupActivity;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 //import UserStoryData;
 
@@ -24,6 +31,19 @@ public class TestTest {
     public ActivityScenarioRule<SetupActivity> activityScenarioRule
             = new ActivityScenarioRule<>(SetupActivity.class);
 
+    @Mock
+    UserProfileViewModel mockViewModel;
+
+    @Before
+    public void setup() {
+        MockitoAnnotations.openMocks(this);
+        when(mockViewModel.getFirstRunFromRepo()).thenReturn(true);
+    }
+
+    @After
+    public void tearDown() {
+        activityScenarioRule.getScenario().close();
+    }
     @Test
     public void userStoryTest() throws InterruptedException {
 

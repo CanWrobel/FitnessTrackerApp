@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.androidjava.FitnessTracker.Models.UserProfile;
 import com.example.androidjava.FitnessTracker.Viewmodels.UserProfileViewModel;
@@ -34,7 +35,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("data", Context.MODE_PRIVATE);
 
-        userProfileViewModel = new UserProfileViewModel();
+        userProfileViewModel = new ViewModelProvider(this).get(UserProfileViewModel.class);
         userProfileViewModel.initialize(sharedPreferences);
 
         fillInputFields();
@@ -83,6 +84,11 @@ public class SettingsActivity extends AppCompatActivity {
         settingsStepsGoal.setText(String.valueOf(userProfile.getStepsGoal()));
     }
 
+    /**
+     * Passes on values input by user to userprofileviewmodel for validation
+     * set errors to text fields when values invalid and validation message available
+     * @param view
+     */
     public void saveChanges(View view) {
         String name = settingsName.getText().toString();
         String age = settingsAge.getText().toString();

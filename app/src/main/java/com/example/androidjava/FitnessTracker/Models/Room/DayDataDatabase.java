@@ -31,7 +31,6 @@ public abstract class DayDataDatabase extends RoomDatabase {
         //INSTANCE.insertTestData();
         //DayDataDatabase_Impl dayDataDatabase_= new DayDataDatabase_Impl();
         //dayDataDatabase_.clearAllTables();
-
         return INSTANCE;
     }
 

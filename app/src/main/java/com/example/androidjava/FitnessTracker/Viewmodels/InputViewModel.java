@@ -1,19 +1,32 @@
 package com.example.androidjava.FitnessTracker.Viewmodels;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 
+import androidx.lifecycle.ViewModel;
+
 import com.example.androidjava.FitnessTracker.Models.Room.DayData;
+import com.example.androidjava.FitnessTracker.Models.Room.DayDataDao;
+import com.example.androidjava.FitnessTracker.Models.Room.DayDataDatabase;
 import com.example.androidjava.FitnessTracker.Models.UserProfile;
 
 import java.util.Date;
 
-public class InputViewModel {
+public class InputViewModel extends ViewModel {
     UserProfile userProfile;
     SharedPreferences sharedPreferences;
+    private DayDataDao dayDataDao;
 
-    public void initialize(SharedPreferences sharedPreferences) {
+    public void initialize(Context context, SharedPreferences sharedPreferences) {
         this.sharedPreferences = sharedPreferences;
         loadUserProfile();
+        this.dayDataDao = DayDataDatabase.getDatabase(context).dayDataDao();
+    }
+
+    public void insertDayDataToDB(DayData dayData){
+        new Thread(() -> {
+            dayDataDao.insert(dayData);
+        }).start();
     }
 
     private void loadUserProfile() {
@@ -43,8 +56,6 @@ public class InputViewModel {
     public double calculateDistanceFromSteps(int stepCount) {
         double stepLength = userProfile.getHeight() * 0.414;
         double distance =  ((stepCount * stepLength) / 100000);
-
-
         return distance;
     }
 

@@ -41,7 +41,7 @@ public class SettingsActivityTest {
     }
 
     @Test
-    public void testBottomNavigationFooter() {
+    public void bottomNavigationFooterTest() {
         Intents.init();
         // Navigate to History
         Espresso.onView(ViewMatchers.withId(R.id.nav_history)).perform(ViewActions.click());

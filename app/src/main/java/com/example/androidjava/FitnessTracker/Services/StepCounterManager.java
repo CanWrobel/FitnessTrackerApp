@@ -15,7 +15,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.CountDownLatch;
 
-public class StepCounterManager {
+public class StepCounterManager implements IStepCounterManager{
     private int stepCount;
     private double distance;
     private int caloriesBurned;
@@ -66,11 +66,11 @@ public class StepCounterManager {
         // Check if the day has changed
         if (!isSameDay(new Date(dayData.getDatum()), new Date())) {
             stepCountOffset = totalSteps;
-            saveToDatabase();
+            saveDataAndResetStepCount();
         }
     }
 
-    public void resetStepCount() {
+    public void saveDataAndResetStepCount() {
         stepCountOffset = totalSteps;
 
         saveToDatabase();

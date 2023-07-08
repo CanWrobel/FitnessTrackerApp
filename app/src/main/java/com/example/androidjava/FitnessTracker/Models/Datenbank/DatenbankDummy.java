@@ -1,14 +1,14 @@
-package com.example.androidjava.FitnessTracker.Models;
+package com.example.androidjava.FitnessTracker.Models.Datenbank;
 
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 import com.example.androidjava.FitnessTracker.Viewmodels.InputViewModel;
 
-public class DatenbankDummy implements Datenbank{
+public class DatenbankDummy implements Datenbank {
 
     List<DayDataMessage> database = new ArrayList<>();
 

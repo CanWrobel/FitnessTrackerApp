@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.androidjava.FitnessTracker.Models.UserProfile;
 import com.example.androidjava.FitnessTracker.Models.UserProfileRepository;
 
-public class UserProfileViewModel extends ViewModel {
+public class UserProfileViewModel extends ViewModel implements IUserProfileViewModel {
     private UserProfile userProfile;
     private UserProfileRepository userProfileRepository;
     private MutableLiveData<String> validationMessage = new MutableLiveData<>();
@@ -19,8 +19,6 @@ public class UserProfileViewModel extends ViewModel {
         return validationMessage;
     }
 
-    public UserProfileViewModel() {
-    }
 
     public void initialize(SharedPreferences sharedPreferences) {
         this.userProfileRepository = UserProfileRepository.getInstance(sharedPreferences);
@@ -127,21 +125,5 @@ public class UserProfileViewModel extends ViewModel {
 
 
 }
-    /*
-    public void setName(String name) {
-        this.userProfile.setName(name);
-    }
-
-    public void setAge(int age) {
-        this.userProfile.setAge(age);
-    }
-
-    public void setHeight(int height) {
-        this.userProfile.setHeight(height);
-    }
-
-    public void setWeight(double weight) {
-        this.userProfile.setWeight(weight);
-    }*/
 
 

@@ -14,6 +14,7 @@ import android.content.SharedPreferences;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.Observer;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.example.androidjava.FitnessTracker.Models.UserProfile;
 
@@ -21,9 +22,11 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+@RunWith(AndroidJUnit4.class)
 public class UserProfileViewModelTest {
 
     @Rule
@@ -37,7 +40,7 @@ public class UserProfileViewModelTest {
     @Mock
     private Observer<String> observer;
 
-    private UserProfileViewModel userProfileViewModel;
+    private IUserProfileViewModel userProfileViewModel;
 
     @Before
     public void setup() {

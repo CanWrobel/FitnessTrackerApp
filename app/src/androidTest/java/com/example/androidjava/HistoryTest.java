@@ -3,8 +3,11 @@ package com.example.androidjava;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.contrib.RecyclerViewActions.scrollToPosition;
+import static androidx.test.espresso.matcher.ViewMatchers.hasChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+
+import android.content.Context;
 
 import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
@@ -25,14 +28,15 @@ public class HistoryTest {
     public ActivityScenarioRule<HistoryActivity> activityRule =
             new ActivityScenarioRule<>(HistoryActivity.class);
 
-    // Run this before each test
+
     @Before
     public void setUp() {
+        Context testContext = ApplicationProvider.getApplicationContext();
 
         testDb = Room.inMemoryDatabaseBuilder(
-                        ApplicationProvider.getApplicationContext(),
+                        testContext,
                         DayDataDatabase.class
-                ).allowMainThreadQueries() // Allowing main thread queries, just for testing
+                ).allowMainThreadQueries()
                 .build();
 
         testDb.dayDataDao().insert(new DayData(1L, 1000, 1.2, 200));
@@ -45,7 +49,7 @@ public class HistoryTest {
     public void historyViewModelRetrieveAndShowCorrectData() {
         onView(withId(R.id.historyRecyclerView))
                 .perform(scrollToPosition(0))
-                .check(matches(hasMinimumChildCount(3))); // check at least three items
+                .check(matches(hasChildCount(3))); // check at least three items
     }
 
     @Test
