@@ -10,7 +10,7 @@ import androidx.room.TypeConverters;
 import java.util.Date;
 
 @Database(entities = {DayData.class}, version = 1, exportSchema = false)
-@TypeConverters(DateConverter.class)
+//@TypeConverters(DateConverter.class)
 public abstract class DayDataDatabase extends RoomDatabase {
     public abstract DayDataDao dayDataDao();
 
@@ -27,6 +27,7 @@ public abstract class DayDataDatabase extends RoomDatabase {
                 }
             }
         }
+
 
         //INSTANCE.insertTestData();
         //DayDataDatabase_Impl dayDataDatabase_= new DayDataDatabase_Impl();

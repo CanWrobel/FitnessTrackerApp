@@ -39,8 +39,6 @@ public class StreaksViewModelTest {
 
     @Mock
     private SharedPreferences sharedPreferences;
-    @Mock
-    private SharedPreferences.Editor editor;
 
     @Before
     public void setUp() {
@@ -50,7 +48,6 @@ public class StreaksViewModelTest {
 
         db = Room.inMemoryDatabaseBuilder(testContext, DayDataDatabase.class)
                 .allowMainThreadQueries().build();
-
     }
 
     @After
@@ -60,13 +57,11 @@ public class StreaksViewModelTest {
 
     @Test
     public void calculateStreakIs1Test() {
-        // Goal of 5000 with daydata1 and daydata2 (only 1, today)
-        when(sharedPreferences.getInt("stepsGoal", 0)).thenReturn(5000);
-
+        when(sharedPreferences.getInt("stepsGoal", 0)).thenReturn(6000);
         // Today, steps 6000
         DayData dayData1 = new DayData(Calendar.getInstance().getTimeInMillis(), 6000, 5, 100);
         // Today - 1, steps 4000
-        DayData dayData2 = new DayData(Calendar.getInstance().getTimeInMillis() - 86400000, 4000, 4, 80);
+        DayData dayData2 = new DayData(Calendar.getInstance().getTimeInMillis() - 86400000, 2000, 4, 80);
         // Today -2 , steps 6000
         DayData dayData3 = new DayData(Calendar.getInstance().getTimeInMillis() - 86400000 * 2, 6000, 5, 100);
 
@@ -80,6 +75,7 @@ public class StreaksViewModelTest {
         int streak = viewModel.calculateStreak();
 
         assertEquals(1, streak);
+        db.dayDataDao().deleteAllDayData();
     }
 
     @Test
@@ -104,6 +100,7 @@ public class StreaksViewModelTest {
         int streak = viewModel.calculateStreak();
 
         assertEquals(5, streak);
+        db.dayDataDao().deleteAllDayData();
     }
 
     @Test
@@ -129,6 +126,7 @@ public class StreaksViewModelTest {
         assertEquals(2, viewModel.getAllStreaks().size());
         assertEquals(3, viewModel.getAllStreaks().get(0).size());
         assertEquals(2, viewModel.getAllStreaks().get(1).size());
+        db.dayDataDao().deleteAllDayData();
         //assertEquals(new Date(dayData5.getDatum()), viewModel.getAllStreaks().get(0).get(0));
     }
 

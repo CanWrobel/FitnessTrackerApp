@@ -3,6 +3,8 @@ package com.example.androidjava.FitnessTracker.Views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +32,8 @@ public class HistoryActivity extends AppCompatActivity {
     private HistoryViewModel viewModel;
     HistoryRecyclerViewAdapter adapter;
 
+    TextView tvEmpty;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,16 +52,16 @@ public class HistoryActivity extends AppCompatActivity {
 
         // Initialize and assign variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.nav_main);
+        bottomNavigationView.setSelectedItemId(R.id.nav_history);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
                 if (itemId == R.id.nav_main) {
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    overridePendingTransition(0,0);
                     return true;
                 } else if (itemId == R.id.nav_history) {
-                    startActivity(new Intent(getApplicationContext(), HistoryActivity.class));
-                    overridePendingTransition(0,0);
                     return true;
                 } else if (itemId == R.id.nav_streaks) {
                     startActivity(new Intent(getApplicationContext(), StreaksActivity.class));
@@ -88,7 +92,13 @@ public class HistoryActivity extends AppCompatActivity {
             dayDataList.clear();
             dayDataList.addAll(dayData);
             adapter.notifyDataSetChanged();
+            if (dayDataList.size() == 0) {
+                tvEmpty = findViewById(R.id.tvEmpty);
+                tvEmpty.setVisibility(View.VISIBLE);
+            }
         });
+
+
 
         /*
         DatenbankDummy dummy = new DatenbankDummy();

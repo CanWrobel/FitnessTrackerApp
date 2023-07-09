@@ -11,6 +11,7 @@ import com.example.androidjava.FitnessTracker.Models.Room.DayDataDatabase;
 import com.example.androidjava.FitnessTracker.Models.UserProfile;
 
 import java.util.Date;
+import java.util.concurrent.CountDownLatch;
 
 public class InputViewModel extends ViewModel {
     UserProfile userProfile;
@@ -24,9 +25,17 @@ public class InputViewModel extends ViewModel {
     }
 
     public void insertDayDataToDB(DayData dayData){
+        CountDownLatch latch = new CountDownLatch(1);
         new Thread(() -> {
             dayDataDao.insert(dayData);
+            latch.countDown();
         }).start();
+
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadUserProfile() {

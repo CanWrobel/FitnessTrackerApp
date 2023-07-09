@@ -41,14 +41,27 @@ public class UserProfileViewModelTest {
     private Observer<String> observer;
 
     private IUserProfileViewModel userProfileViewModel;
+    String name = "Bob";
+    int age = 20;
+    int height = 180;
+    float weight = 90.0f;
+    int stepsGoal = 1000;
 
     @Before
     public void setup() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
+
+
+        userProfileViewModel = new UserProfileViewModel();
+        when(sharedPreferences.getBoolean("isFirstRun", true)).thenReturn(true);
+        when(sharedPreferences.getString("name", "")).thenReturn(name);
+        when(sharedPreferences.getInt("age", 0)).thenReturn(age);
+        when(sharedPreferences.getInt("height", 0)).thenReturn(height);
+        when(sharedPreferences.getFloat("weight", 0)).thenReturn(weight);
+        when(sharedPreferences.getInt("stepsGoal", 0)).thenReturn(stepsGoal);
         when(sharedPreferences.edit()).thenReturn(editor);
         when(editor.putBoolean(anyString(), anyBoolean())).thenReturn(editor);
 
-        userProfileViewModel = new UserProfileViewModel();
         userProfileViewModel.initialize(sharedPreferences);
         userProfileViewModel.getValidationMessage().observeForever(observer);
     }
@@ -138,21 +151,8 @@ public class UserProfileViewModelTest {
     }
 
     @Test
-    public void testLoadUserProfile() {
-        String name = "Bob";
-        int age = 20;
-        int height = 180;
-        float weight = 90.0f;
-        int stepsGoal = 1000;
+    public void loadUserProfileTest() {
 
-        when(sharedPreferences.getString("name", "")).thenReturn(name);
-        when(sharedPreferences.getInt("age", 0)).thenReturn(age);
-        when(sharedPreferences.getInt("height", 0)).thenReturn(height);
-        when(sharedPreferences.getFloat("weight", 0)).thenReturn(weight);
-        when(sharedPreferences.getInt("stepsGoal", 0)).thenReturn(stepsGoal);
-
-
-        userProfileViewModel.initialize(sharedPreferences);
         UserProfile loadedUserProfile = userProfileViewModel.getUserProfile();
         assertEquals(name, loadedUserProfile.getName());
         assertEquals(age, loadedUserProfile.getAge());
@@ -163,7 +163,6 @@ public class UserProfileViewModelTest {
 
     @Test
     public void setAndGetFirstRunFromRepoTest() {
-        when(sharedPreferences.getBoolean("isFirstRun", true)).thenReturn(true);
         assertTrue(userProfileViewModel.getFirstRunFromRepo());
 
         userProfileViewModel.saveFirstRunToRepo(false);

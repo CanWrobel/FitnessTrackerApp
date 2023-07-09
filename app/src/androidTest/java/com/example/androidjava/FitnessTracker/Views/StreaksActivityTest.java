@@ -58,6 +58,14 @@ public class StreaksActivityTest {
         Espresso.onView(ViewMatchers.withId(R.id.nav_main)).perform(ViewActions.click());
         Intents.intended(IntentMatchers.hasComponent(MainActivity.class.getName()));
 
+        // Navigate back to streaks
+        Espresso.onView(ViewMatchers.withId(R.id.nav_streaks)).perform(ViewActions.click());
+
+        // Navigate to Input
+        Espresso.onView(ViewMatchers.withId(R.id.nav_input)).perform(ViewActions.click());
+        Intents.intended(IntentMatchers.hasComponent(InputActivity.class.getName()));
+
+
         Intents.release();
     }
 }

@@ -62,6 +62,13 @@ public class SettingsActivityTest {
         Espresso.onView(ViewMatchers.withId(R.id.nav_main)).perform(ViewActions.click());
         Intents.intended(IntentMatchers.hasComponent(MainActivity.class.getName()));
 
+        // Navigate back to settings
+        Espresso.onView(ViewMatchers.withId(R.id.nav_settings)).perform(ViewActions.click());
+
+        // Navigate to Input
+        Espresso.onView(ViewMatchers.withId(R.id.nav_input)).perform(ViewActions.click());
+        Intents.intended(IntentMatchers.hasComponent(InputActivity.class.getName()));
+
         Intents.release();
     }
 }

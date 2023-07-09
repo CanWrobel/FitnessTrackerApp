@@ -90,7 +90,7 @@ public class InputActivity extends AppCompatActivity {
             String dateString = inputDate.getText().toString();
             int steps = Integer.parseInt(inputSteps.getText().toString());
 
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
             Date date = formatter.parse(dateString);
             if(date != null) {
@@ -101,7 +101,7 @@ public class InputActivity extends AppCompatActivity {
                 inputDate.setText("");
                 inputSteps.setText("");
             } else {
-                inputDate.setError("PLease enter a valid date. (dd-MM-yyyy)");
+                inputDate.setError("PLease enter a valid date. (yyyy-MM-dd)");
             }
         } catch (ParseException e) {
             e.printStackTrace();

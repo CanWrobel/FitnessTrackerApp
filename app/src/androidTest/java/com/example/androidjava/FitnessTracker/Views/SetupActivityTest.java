@@ -9,6 +9,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 import static org.mockito.Mockito.when;
 
+import android.content.SharedPreferences;
+
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.assertion.ViewAssertions;
@@ -27,25 +29,15 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+// Test for SetupActivity
+// Requirements: Run in a device opening the app the very first time
+// In virtual device can first off perform wipe data before running
 public class SetupActivityTest {
 
     @Rule
     public ActivityScenarioRule<SetupActivity> activityScenarioRule
             = new ActivityScenarioRule<>(SetupActivity.class);
 
-    @Mock
-    UserProfileViewModel mockViewModel;
-
-    @Before
-    public void setup() {
-        MockitoAnnotations.openMocks(this);
-        when(mockViewModel.getFirstRunFromRepo()).thenReturn(true);
-    }
-
-    @After
-    public void tearDown() {
-        activityScenarioRule.getScenario().close();
-    }
 
    @Test
     public void allELementsPresentFirstPage() {

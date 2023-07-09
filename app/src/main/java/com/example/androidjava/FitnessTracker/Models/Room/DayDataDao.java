@@ -41,7 +41,6 @@ public interface DayDataDao {
 
     /**
      * Retrieve a specific DayData object by its date from the database.
-     *
      * @param datum Date
      * @return DayData of the date
      */
